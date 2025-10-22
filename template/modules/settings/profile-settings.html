@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/design/style.css">
+    <title>reNomicms</title>
+</head>
+<body class="bg-black m-[auto] flex flex-col items-center justify-center gap-1 sm:gap-4 pb-[70px] sm:pb-[70px] sm:flex-row sm:items-start">
+
+
+    <!--SIDEBAR (only for desktop)-->
+    <div class="hidden sm:flex flex-col gap-2 items-start top-0 w-[220px] text-white ml-[-240px] sticky z-50">
+        <div class="flex items-center px-[12px] py-4 w-full">
+            <a href="#" class="flex gap-2 items-center text-[18px] font-bold"><img src="/design/img/logo-icon.png" alt=""> NomiCMS</a>
+        </div>
+        <div class="flex flex-col bg-[#080808] rounded-[8px] w-full gap-1 text-[16px]">
+            <a href="/modules/user/profile.html" class="flex items-start gap-3 px-[12px] py-[10px] border-b border-black">
+                    <img width="42" class="rounded-[8px]" src="/design/img/default-avatar.png" alt="">
+                <div>
+                    <p>shuname</p>
+                    <p class="text-[12px] text-[#dbdbdb]">Перейти в профиль</p>
+                </div>
+            </a>
+
+            
+        </div>
+
+        <div class="flex flex-col w-full gap-1 text-[16px] border-b border-[#0f0f0f] pb-2">
+            <a href="#" class="flex justify-between items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616]"><p class="flex items-center gap-2"><img src="/design/img/mail-sidebar.png" alt="">Сообщение</p> <p class="min-w-[20px] h-[20px] px-[6px] rounded-full bg-[#ED3426] text-white
+                     text-[12px] font-bold flex items-center justify-center leading-none
+                      pointer-events-none">5</p></a>
+            <a href="#" class="flex justify-between items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616]"><p class="flex items-center gap-2"><img src="/design/img/notification-sidebar.png" alt="">Уведомление</p> <p class="min-w-[20px] h-[20px] px-[6px] rounded-full bg-[#ED3426] text-white
+                     text-[12px] font-bold flex items-center justify-center leading-none
+                      pointer-events-none">5</p></a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616]"><img src="/design/img/settings-sidebar.png" alt="">Настройки</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616]"><img src="/design/img/logout-sidebar.png" alt="">Выйти</a>
+        </div>
+
+        <div class="flex flex-col w-full gap-1 text-[16px] border-b border-[#0f0f0f] pb-2">
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/home.png" alt="">Главная</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/news-sidebar.png" alt="">Новости</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/forum-sidebar.png" alt="">Форум</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/blog-sidebar.png" alt="">Блог</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/chat-sidebar.png" alt="">Мини-чат</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/users-sidebar.png" alt="">Пользователи</a>
+        </div>
+
+        <div class="flex items-center justify-between w-full text-[12px] text-[#777777] font-semibold">
+          <a href="#" class="px-[12px] py-[8px] pt-0 hover:text-[#dbdbdb] transition-transform duration-300 ease-out">Помощь</a>
+          <a href="#" class="px-[12px] py-[8px] pt-0 hover:text-[#dbdbdb] transition-transform duration-300 ease-out">Админи</a>
+          <p class="px-[12px] py-[8px] pt-0">G: 0.0045</p>
+        </div>
+    </div>
+
+    <!--mobile header (sticky top)-->
+    <div class="flex items-center justify-between w-full bg-[#131313] border-b border-[#1D1D1D] text-[#dbdbdb] sticky top-0 sm:hidden">
+      <a href="/modules/settings/index.html" class="flex items-center gap-1 px-[16px] py-[14px]"><img src="/design/img/back.png" alt=""></a>
+      <div class="flex justify-center font-semibold">Редактировать профиля</div>
+      <a href="#" class="flex items-center gap-1 px-[16px] py-[14px]"><img src="/design/img/more.png" alt=""></a>
+    </div>
+
+<!-- ✅ mobile navbar — FIXED bottom + equal width links -->
+<div class="fixed bottom-0 left-0 right-0 sm:hidden z-99
+            bg-[#131313] border-t border-[#1D1D1D] text-[#dbdbdb] h-[70px]
+
+">
+  <!-- весь ряд на всю ширину -->
+  <nav class="w-full h-full flex">
+
+    <!-- Главная -->
+    <a href="#"
+       class="flex-1 h-full flex flex-col items-center justify-center gap-1 mt-[-5px]">
+      <span class="relative inline-block">
+        <img src="/design/img/navbar-home.png" alt="">
+      </span>
+      <span class="text-[10px]">Главная</span>
+    </a>
+
+    <!-- Уведомления -->
+    <a href="#"
+       class="flex-1 h-full flex flex-col items-center justify-center gap-1 mt-[-5px]">
+      <span class="relative inline-block">
+        <img src="/design/img/navbar-notification.png" alt="">
+        <!-- badge -->
+        <span class="absolute -top-1 -right-1 translate-x-1/4 -translate-y-1/0
+                     min-w-[18px] h-[18px] px-[6px] rounded-full bg-[#ED3426] text-white
+                     text-[10px] font-bold flex items-center justify-center leading-none
+                     ring-2 ring-[#131313] pointer-events-none">5</span>
+      </span>
+      <span class="text-[10px]">Уведомление</span>
+    </a>
+
+    <!-- Чаты -->
+    <a href="#"
+       class="flex-1 h-full flex flex-col items-center justify-center gap-1 mt-[-5px]">
+      <span class="relative inline-block">
+        <img src="/design/img/navbar-mail.png" alt="">
+        <!-- badge -->
+        <span class="absolute -top-1 -right-1 translate-x-1/4 -translate-y-1/0
+                     min-w-[18px] h-[18px] px-[6px] rounded-full bg-[#ED3426] text-white
+                     text-[10px] font-bold flex items-center justify-center leading-none
+                     ring-2 ring-[#131313] pointer-events-none">4</span>
+      </span>
+      <span class="text-[10px]">Чаты</span>
+    </a>
+
+    <!-- Профиль -->
+    <a href="#"
+       class="flex-1 h-full flex flex-col items-center justify-center gap-1 mt-[-5px]">
+      <span class="relative inline-block">
+        <img class="rounded-full w-[24px] h-[24px]" src="/design/img/default-avatar.png" alt="">
+      </span>
+      <span class="text-[10px]">Профиль</span>
+    </a>
+
+  </nav>
+</div>
+
+
+    <!--content-->
+    <div class="w-full max-w-[540px] flex flex-col gap-4 items-center text-[14px] p-3 sm:gap-4 sm:p-0">
+
+        <!--Navigation-->
+        <div class="hidden sm:flex items-center pt-1 justify-between w-full text-[#dbdbdb] sticky top-0 bg-black z-50">
+            <a href="#" class="flex items-center gap-1 pr-4 py-3"><img class="w-[26px]" src="/design/img/back.png" alt=""></a>
+            <div class="flex justify-center font-semibold text-[16px] gap-2"><p>Редактировать профиля</p></div>
+            <button type="button" class="flex items-center gap-1 px-[16px] py-[14px]" data-bottom-sheet-open data-bottom-sheet-target="navbar-actions"><img src="/design/img/more.png" alt=""></button>
+        </div>
+
+        <!-- Аватар + красивая кнопка загрузки -->
+<div class="flex w-full items-center max-w-[540px] text-[#dbdbdb] gap-3">
+
+  <!-- Превью аватара -->
+  <div id="avatarPreview" class="w-[88px] h-[88px] rounded-[12px] overflow-hidden border border-[#1D1D1D] bg-[#0B0B0B]">
+    <img id="avatarImg" src="/design/img/default-avatar.png" alt="Аватар" class="w-full h-full object-cover">
+  </div>
+
+  <div class="flex flex-col">
+    <!-- Скрытый input -->
+  <input id="avatarFile" type="file" accept="image/*" class="hidden">
+
+  <!-- Кнопки -->
+  <div class="flex flex-col items-start w-full justify-center gap-2">
+    <!-- label как кнопка -->
+    <label for="avatarFile"
+           class="inline-flex items-center gap-2 px-4 py-2 rounded-[10px] bg-[#32AFED] text-black font-bold hover:bg-[#2b99cf] cursor-pointer select-none">
+      <!-- Иконка загрузки -->
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+      Загрузить фото
+    </label>
+
+    <!-- Удалить / сброс -->
+    <button type="button" id="removeAvatar"
+            class="inline-flex items-center gap-2 px-3 py-2 rounded-[10px] bg-[#131313] border border-[#1D1D1D] text-[#dbdbdb] hover:bg-[#171717] disabled:opacity-40"
+            disabled>
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="3 6 5 6 21 6"/>
+        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+        <path d="M10 11v6M14 11v6"/>
+        <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/>
+      </svg>
+      Удалить
+    </button>
+  </div>
+  </div>
+
+  <!-- Подсказка + ошибки -->
+  <p id="avatarError" class="hidden text-[#ED3426] text-xs"></p>
+</div>
+
+
+        <div class="flex flex-col w-full max-w-[540px] text-[#dbdbdb] gap-2">
+            <div class="px-1 text-[14px]">Изменить имя</div>
+            <input class="pl-4 px-2 py-3 w-full focus:border-[#505050] focus:outline bg-[#131313] border border-[#1D1D1D] text-[#dbdbdb] placeholder:text-[#ffffff] rounded-[12px] text-[14px]" type="text" placeholder="Abdushukur" name="" id="">
+        </div>
+
+        <!-- Дата рождения -->
+<div class="flex flex-col w-full max-w-[540px] text-[#dbdbdb] gap-2">
+  <label for="dob" class="px-1 text-[14px]">Дата рождения</label>
+
+  <!-- Вариант A: нативный date -->
+  <div id="dob-native-wrap" class="relative">
+    <input
+      type="date"
+      id="dob"
+      name="dob"
+      class="pl-4 pr-4 py-3 w-full bg-[#131313] border border-[#1D1D1D] text-[#ffffff] rounded-[12px] text-[14px]
+             focus:outline-none focus:border-[#505050] [color-scheme:dark]"
+      autocomplete="bday"
+    />
+    
+  </div>
+
+  <!-- Вариант B: фолбэк на селекты (скрыт по умолчанию) -->
+  <div id="dob-fallback" class="hidden">
+    <div class="flex gap-2">
+      <select id="dob-day"
+              class="flex-1 min-w-0 px-3 py-3 bg-[#131313] border border-[#1D1D1D] rounded-[12px] text-[14px] focus:outline-none focus:border-[#505050]">
+        <option value="" selected>День</option>
+      </select>
+      <select id="dob-month"
+              class="flex-1 min-w-0 px-3 py-3 bg-[#131313] border border-[#1D1D1D] rounded-[12px] text-[14px] focus:outline-none focus:border-[#505050]">
+        <option value="" selected>Месяц</option>
+      </select>
+      <select id="dob-year"
+              class="flex-1 min-w-0 px-3 py-3 bg-[#131313] border border-[#1D1D1D] rounded-[12px] text-[14px] focus:outline-none focus:border-[#505050]">
+        <option value="" selected>Год</option>
+      </select>
+    </div>
+    <!-- сюда соберём ISO-дату для формы -->
+    <input type="hidden" name="dob_iso" id="dob-iso">
+  </div>
+
+  <!-- Ошибка -->
+  <p id="dob-error" class="hidden text-[#ED3426] text-[12px] px-1 mt-1"></p>
+</div>
+
+<div class="flex flex-col w-full max-w-[540px] text-[#dbdbdb] gap-2">
+            <div class="px-1 text-[14px]">О себе</div>
+            <form action="" class="flex flex-col w-full max-w-[540px]">
+    <textarea
+      data-autosize
+      rows="1"
+      placeholder="Не отвечаю? Значит занят. Либо спасаю мир, либо опустошаю холодильник."
+      class="w-full p-4 border border-[#1D1D1D] rounded-[12px] bg-[#131313] text-[#ffffff] placeholder:text-[#ffffff]
+             resize-none overflow-hidden leading-[1.4]
+             focus:ring-0 focus:outline-none
+             min-h-[70px] max-h-[50vh]"></textarea>
+  </form>
+        </div>
+
+        <div class="w-full max-w-[540px]">
+            <button class="px-2 py-3 bg-[#31AEEC] text-black font-bold rounded-[8px] w-full hover:bg-[#3abdff]">Сохранить</button>
+        </div>
+    </div>
+
+
+    
+<div id="navbar-bottom-sheet" data-bottom-sheet="navbar-actions" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+        <div class="absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300" data-bottom-sheet-overlay></div>
+        <div class="absolute bottom-0 left-0 right-0 bg-[#131313] border-t border-[#1D1D1D] rounded-t-[16px] px-4 pt-4 pb-6 translate-y-full transition-transform duration-300" data-bottom-sheet-panel role="menu">
+            <div class="mx-auto mb-4 h-[4px] w-12 rounded-full bg-[#2E2E2E]"></div>
+            <div class="flex flex-col items-center gap-2 text-[#F5F5F5] text-[14px]">
+                <button type="button" class="flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-2 px-4 text-left hover:bg-[#252525]" data-bottom-sheet-dismiss data-bottom-sheet-action="edit">Обновить страницу</button>
+                <button type="button" class="flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-2 px-4 text-left hover:bg-[#252525]" data-bottom-sheet-dismiss data-bottom-sheet-action="notify">Написать в поддержку</button>
+                <button type="button" class="flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-2 px-4 text-left hover:bg-[#252525]" data-bottom-sheet-dismiss data-bottom-sheet-action="share">Поддержать проект</button>
+                <button type="button" class="mt-4 w-full max-w-[540px] rounded-[10px] border border-[#232323] p-2 text-[#F5F5F5] hover:bg-[#1C1C1C]" data-bottom-sheet-dismiss>Закрыть</button>
+            </div>
+            </div>
+    </div>
+    <script>
+(() => {
+  const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+  const input   = document.getElementById('avatarFile');
+  const img     = document.getElementById('avatarImg');
+  const remove  = document.getElementById('removeAvatar');
+  const err     = document.getElementById('avatarError');
+  const preview = document.getElementById('avatarPreview');
+
+  const defaultSrc = img.getAttribute('src');
+
+  function setError(msg) {
+    if (!msg) {
+      err.classList.add('hidden'); err.textContent = '';
+      preview.classList.remove('ring-1','ring-[#ED3426]');
+    } else {
+      err.textContent = msg; err.classList.remove('hidden');
+      preview.classList.add('ring-1','ring-[#ED3426]');
+    }
+  }
+
+  function updatePreview(file) {
+    if (!file) return;
+
+    // типы
+    if (!/^image\/(jpeg|png|webp|gif|bmp|svg\+xml|svg)$/.test(file.type)) {
+      setError('Поддерживаем только изображения (JPG, PNG, WebP, SVG…).');
+      input.value = ''; remove.disabled = true;
+      return;
+    }
+    // размер
+    if (file.size > MAX_SIZE) {
+      setError('Файл слишком большой. Максимум 5 МБ.');
+      input.value = ''; remove.disabled = true;
+      return;
+    }
+
+    setError('');
+    const url = URL.createObjectURL(file);
+    img.src = url;
+    remove.disabled = false;
+  }
+
+  input.addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    updatePreview(file);
+  });
+
+  remove.addEventListener('click', () => {
+    input.value = '';
+    img.src = defaultSrc;
+    remove.disabled = true;
+    setError('');
+  });
+
+  // (опционально) Drag & Drop прямо на превью
+  ['dragenter','dragover'].forEach(ev => {
+    preview.addEventListener(ev, (e) => {
+      e.preventDefault(); e.stopPropagation();
+      preview.classList.add('ring-1','ring-[#32AFED]');
+    });
+  });
+  ['dragleave','drop'].forEach(ev => {
+    preview.addEventListener(ev, (e) => {
+      e.preventDefault(); e.stopPropagation();
+      preview.classList.remove('ring-1','ring-[#32AFED]');
+    });
+  });
+  preview.addEventListener('drop', (e) => {
+    const file = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (!file) return;
+    updatePreview(file);
+  });
+})();
+
+
+(function () {
+  // Настройки возраста (минимум/максимум)
+  const MIN_AGE = 14, MAX_AGE = 80;
+
+  const dobInput = document.getElementById('dob');
+  const err = document.getElementById('dob-error');
+  const nativeWrap = document.getElementById('dob-native-wrap');
+  const fbWrap = document.getElementById('dob-fallback');
+
+  // Проверка поддержки <input type="date">
+  const dateSupported = (() => {
+    const i = document.createElement('input');
+    i.setAttribute('type', 'date');
+    return i.type === 'date';
+  })();
+
+  // Выставляем min/max для нативного инпута
+  function iso(d){ return d.toISOString().slice(0,10); }
+  const today = new Date();
+  const maxDate = iso(today); // не позволяем будущее
+  const minDate = iso(new Date(today.getFullYear() - MAX_AGE, 0, 1));
+  if (dobInput) { dobInput.max = maxDate; dobInput.min = minDate; }
+
+  // Подсчёт возраста
+  function ageFrom(d){
+    const now = new Date();
+    let age = now.getFullYear() - d.getFullYear();
+    const m = now.getMonth() - d.getMonth();
+    if (m < 0 || (m === 0 && now.getDate() < d.getDate())) age--;
+    return age;
+  }
+
+  function setError(msg){
+    err.textContent = msg || '';
+    err.classList.toggle('hidden', !msg);
+    if (dateSupported) {
+      dobInput.classList.toggle('border-[#ED3426]', !!msg);
+    } else {
+      // Подсветим селекты при ошибке
+      ['dob-day','dob-month','dob-year'].forEach(id=>{
+        const el = document.getElementById(id);
+        el && el.classList.toggle('border-[#ED3426]', !!msg);
+      });
+    }
+  }
+
+  function validateDate(d) {
+    if (!d || isNaN(+d)) { setError('Выберите корректную дату.'); return false; }
+    if (d > today) { setError('Дата из будущего недоступна.'); return false; }
+    const age = ageFrom(d);
+    if (age < MIN_AGE) { setError(`Вам должно быть не менее ${MIN_AGE} лет.`); return false; }
+    if (age > MAX_AGE) { setError(`Возраст не может превышать ${MAX_AGE} лет.`); return false; }
+    setError('');
+    return true;
+  }
+
+  if (dateSupported) {
+    // Используем нативный календарь
+    nativeWrap.classList.remove('hidden');
+    fbWrap.classList.add('hidden');
+
+    dobInput.addEventListener('change', () => {
+      if (!dobInput.value) return setError('Выберите дату.');
+      const d = new Date(dobInput.value + 'T00:00:00');
+      validateDate(d);
+    });
+
+  } else {
+    // Фолбэк на селекты
+    nativeWrap.classList.add('hidden');
+    fbWrap.classList.remove('hidden');
+
+    const daySel = document.getElementById('dob-day');
+    const monSel = document.getElementById('dob-month');
+    const yrSel  = document.getElementById('dob-year');
+    const isoOut = document.getElementById('dob-iso');
+
+    // Заполняем дни
+    for (let d = 1; d <= 31; d++) {
+      const opt = document.createElement('option');
+      opt.value = String(d).padStart(2,'0');
+      opt.textContent = d;
+      daySel.appendChild(opt);
+    }
+    // Заполняем месяцы (RU)
+    const months = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+    months.forEach((m, idx) => {
+      const opt = document.createElement('option');
+      opt.value = String(idx+1).padStart(2,'0');
+      opt.textContent = m;
+      monSel.appendChild(opt);
+    });
+    // Заполняем годы (от maxAge до minAge)
+    const thisYear = today.getFullYear();
+    for (let y = thisYear - MIN_AGE; y >= thisYear - MAX_AGE; y--) {
+      const opt = document.createElement('option');
+      opt.value = y;
+      opt.textContent = y;
+      yrSel.appendChild(opt);
+    }
+
+    function onChange(){
+      const dd = daySel.value, mm = monSel.value, yy = yrSel.value;
+      if (!dd || !mm || !yy) { setError('Выберите дату.'); return; }
+      const candidate = new Date(`${yy}-${mm}-${dd}T00:00:00`);
+      if (!validateDate(candidate)) return;
+      isoOut.value = `${yy}-${mm}-${dd}`; // пригодно для отправки на бек
+    }
+
+    daySel.addEventListener('change', onChange);
+    monSel.addEventListener('change', onChange);
+    yrSel.addEventListener('change', onChange);
+  }
+})();
+
+  // Автоматическое изменение высоты для всех textarea с [data-autosize]
+  const fit = (el) => {
+    el.style.height = 'auto';                 // сброс
+    el.style.height = el.scrollHeight + 'px'; // подгон по контенту
+  };
+
+  // Инициализация на старте
+  document.querySelectorAll('[data-autosize]').forEach(fit);
+
+  // Обработка ввода (ввод, удаление, вставка)
+  document.addEventListener('input', (e) => {
+    if (e.target.matches('[data-autosize]')) fit(e.target);
+  });
+
+  // Bottom sheet menu interactions
+  (function () {
+    const sheets = Array.from(document.querySelectorAll('[data-bottom-sheet]'));
+    if (!sheets.length) return;
+    const openButtons = Array.from(document.querySelectorAll('[data-bottom-sheet-open]'));
+    if (!openButtons.length) return;
+
+    const sheetMap = new Map();
+    let activeSheet = null;
+
+    function ensureClosed(state) {
+      state.panel.classList.add('translate-y-full');
+      state.overlay.classList.add('opacity-0');
+      state.sheet.classList.add('hidden');
+    }
+
+    function closeSheet(state) {
+      if (!state || state.sheet.classList.contains('hidden')) return;
+      state.overlay.classList.add('opacity-0');
+      state.panel.classList.add('translate-y-full');
+
+      const onTransitionEnd = (event) => {
+        if (event.target !== state.panel) return;
+        if (!state.panel.classList.contains('translate-y-full')) return;
+        state.sheet.classList.add('hidden');
+        if (activeSheet === state) {
+          activeSheet = null;
+          document.removeEventListener('keydown', handleEscape);
+        }
+      };
+
+      state.panel.addEventListener('transitionend', onTransitionEnd, { once: true });
+    }
+
+    function handleEscape(event) {
+      if (event.key !== 'Escape' || !activeSheet) return;
+      closeSheet(activeSheet);
+    }
+
+    function openSheet(state) {
+      if (!state) return;
+
+      if (activeSheet && activeSheet !== state) {
+        closeSheet(activeSheet);
+      }
+
+      activeSheet = state;
+      state.sheet.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        state.overlay.classList.remove('opacity-0');
+        state.panel.classList.remove('translate-y-full');
+      });
+
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    sheets.forEach((sheet, index) => {
+      const panel = sheet.querySelector('[data-bottom-sheet-panel]');
+      const overlay = sheet.querySelector('[data-bottom-sheet-overlay]');
+      if (!panel || !overlay) return;
+
+      const dismissButtons = Array.from(sheet.querySelectorAll('[data-bottom-sheet-dismiss]'));
+      const identifiers = [
+        sheet.dataset.bottomSheet,
+        sheet.id,
+        `bottom-sheet-${index + 1}`
+      ].filter(Boolean);
+
+      if (!identifiers.length) return;
+
+      const state = { id: identifiers[0], sheet, panel, overlay, dismissButtons };
+      identifiers.forEach((value) => sheetMap.set(value, state));
+
+      ensureClosed(state);
+
+      overlay.addEventListener('click', () => closeSheet(state));
+      sheet.addEventListener('click', (event) => {
+        if (event.target === sheet) {
+          closeSheet(state);
+        }
+      });
+
+      dismissButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          closeSheet(state);
+        });
+      });
+    });
+
+    if (!sheetMap.size) return;
+    const defaultSheet = sheetMap.values().next().value;
+
+    openButtons.forEach((button) => {
+      const targetId = button.dataset.bottomSheetTarget || button.getAttribute('data-bottom-sheet-open');
+      const state = targetId ? sheetMap.get(targetId) : defaultSheet;
+      if (!state) return;
+
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        openSheet(state);
+      });
+    });
+  })();
+
+</script>
+</body>
+</html>

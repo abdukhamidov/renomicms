@@ -1,0 +1,10 @@
+  const [error, setError] = useState<string | null>(null);
+      setError("User not specified");
+      setError(null);
+          setError(err instanceof Error ? err.message : "Не удалось загрузить профиль");
+      setError(err instanceof Error ? err.message : "Не удалось изменить подписку");
+  const [error, setError] = useState<string | null>(null);
+      setError("Write something before sending.");
+      setError("Sign in to leave a message.");
+    setError(null);
+      setError(submissionError instanceof Error ? submissionError.message : "Unable to send the message.");

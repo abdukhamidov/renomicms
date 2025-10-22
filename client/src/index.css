@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-family: "Nunito Sans", system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+    color: #dbdbdb;
+    background-color: #000000;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  body {
+    @apply min-h-screen bg-black text-[#dbdbdb];
+    margin: 0;
+  }
+
+  :root::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/design/style.css">
+    <title>reNomicms</title>
+</head>
+<body class="bg-black m-[auto] flex flex-col items-center justify-center gap-1 sm:gap-4 pb-[70px] sm:pb-[70px] sm:flex-row sm:items-start">
+
+
+    <!--SIDEBAR (only for desktop)-->
+    <div class="hidden sm:flex flex-col gap-2 items-start top-0 w-[220px] text-white ml-[-240px] sticky z-50">
+        <div class="flex items-center px-[12px] py-4 w-full">
+            <a href="#" class="flex gap-2 items-center text-[18px] font-bold"><img src="/design/img/logo-icon.png" alt=""> NomiCMS</a>
+        </div>
+        <div class="flex flex-col bg-[#080808] rounded-[8px] w-full gap-1 text-[16px]">
+            <a href="/modules/user/profile.html" class="flex items-start gap-3 px-[12px] py-[10px] border-b border-black">
+                    <img width="42" class="rounded-[8px]" src="/design/img/default-avatar.png" alt="">
+                <div>
+                    <p>shuname</p>
+                    <p class="text-[12px] text-[#dbdbdb]">Перейти в профиль</p>
+                </div>
+            </a>
+
+            
+        </div>
+
+        <div class="flex flex-col w-full gap-1 text-[16px] border-b border-[#0f0f0f] pb-2">
+            <a href="#" class="flex justify-between items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616]"><p class="flex items-center gap-2"><img src="/design/img/mail-sidebar.png" alt="">Сообщение</p> <p class="min-w-[20px] h-[20px] px-[6px] rounded-full bg-[#ED3426] text-white
+                     text-[12px] font-bold flex items-center justify-center leading-none
+                      pointer-events-none">5</p></a>
+            <a href="#" class="flex justify-between items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616]"><p class="flex items-center gap-2"><img src="/design/img/notification-sidebar.png" alt="">Уведомление</p> <p class="min-w-[20px] h-[20px] px-[6px] rounded-full bg-[#ED3426] text-white
+                     text-[12px] font-bold flex items-center justify-center leading-none
+                      pointer-events-none">5</p></a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616]"><img src="/design/img/settings-sidebar.png" alt="">Настройки</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616]"><img src="/design/img/logout-sidebar.png" alt="">Выйти</a>
+        </div>
+
+        <div class="flex flex-col w-full gap-1 text-[16px] border-b border-[#0f0f0f] pb-2">
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/home.png" alt="">Главная</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/news-sidebar.png" alt="">Новости</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/forum-sidebar.png" alt="">Форум</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/blog-sidebar.png" alt="">Блог</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/chat-sidebar.png" alt="">Мини-чат</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/users-sidebar.png" alt="">Пользователи</a>
+        </div>
+
+        <div class="flex items-center justify-between w-full text-[12px] text-[#777777] font-semibold">
+          <a href="#" class="px-[12px] py-[8px] pt-0 hover:text-[#dbdbdb] transition-transform duration-300 ease-out">Помощь</a>
+          <a href="#" class="px-[12px] py-[8px] pt-0 hover:text-[#dbdbdb] transition-transform duration-300 ease-out">Админи</a>
+          <p class="px-[12px] py-[8px] pt-0">G: 0.0045</p>
+        </div>
+    </div>
+
+    <!--mobile header (sticky top)-->
+    <div class="flex items-center justify-between w-full bg-[#131313] border-b border-[#1D1D1D] text-[#dbdbdb] sticky top-0 sm:hidden">
+      <a href="#" class="flex items-center gap-1 px-[16px] py-[14px]"><img src="/design/img/back.png" alt=""></a>
+      <div class="flex justify-center font-semibold">Форум - название раздела</div>
+      <a href="#" class="flex items-center gap-1 px-[16px] py-[14px]"><img src="/design/img/more.png" alt=""></a>
+    </div>
+
+<!-- ✅ mobile navbar — FIXED bottom + equal width links -->
+<div class="fixed bottom-0 left-0 right-0 sm:hidden z-99
+            bg-[#131313] border-t border-[#1D1D1D] text-[#dbdbdb] h-[70px]
+
+">
+  <!-- весь ряд на всю ширину -->
+  <nav class="w-full h-full flex">
+
+    <!-- Главная -->
+    <a href="#"
+       class="flex-1 h-full flex flex-col items-center justify-center gap-1 mt-[-5px]">
+      <span class="relative inline-block">
+        <img src="/design/img/navbar-home.png" alt="">
+      </span>
+      <span class="text-[10px]">Главная</span>
+    </a>
+
+    <!-- Уведомления -->
+    <a href="#"
+       class="flex-1 h-full flex flex-col items-center justify-center gap-1 mt-[-5px]">
+      <span class="relative inline-block">
+        <img src="/design/img/navbar-notification.png" alt="">
+        <!-- badge -->
+        <span class="absolute -top-1 -right-1 translate-x-1/4 -translate-y-1/0
+                     min-w-[18px] h-[18px] px-[6px] rounded-full bg-[#ED3426] text-white
+                     text-[10px] font-bold flex items-center justify-center leading-none
+                     ring-2 ring-[#131313] pointer-events-none">5</span>
+      </span>
+      <span class="text-[10px]">Уведомление</span>
+    </a>
+
+    <!-- Чаты -->
+    <a href="#"
+       class="flex-1 h-full flex flex-col items-center justify-center gap-1 mt-[-5px]">
+      <span class="relative inline-block">
+        <img src="/design/img/navbar-mail.png" alt="">
+        <!-- badge -->
+        <span class="absolute -top-1 -right-1 translate-x-1/4 -translate-y-1/0
+                     min-w-[18px] h-[18px] px-[6px] rounded-full bg-[#ED3426] text-white
+                     text-[10px] font-bold flex items-center justify-center leading-none
+                     ring-2 ring-[#131313] pointer-events-none">4</span>
+      </span>
+      <span class="text-[10px]">Чаты</span>
+    </a>
+
+    <!-- Профиль -->
+    <a href="#"
+       class="flex-1 h-full flex flex-col items-center justify-center gap-1 mt-[-5px]">
+      <span class="relative inline-block">
+        <img class="rounded-full w-[24px] h-[24px]" src="/design/img/default-avatar.png" alt="">
+      </span>
+      <span class="text-[10px]">Профиль</span>
+    </a>
+
+  </nav>
+</div>
+
+
+    <!--content-->
+    <div class="w-full max-w-[540px] flex flex-col gap-2 items-center text-[14px] p-3 sm:gap-4 sm:p-0">
+
+        <!--Navigation-->
+        <div class="hidden sm:flex items-center pt-1 justify-between w-full text-[#dbdbdb] sticky top-0 bg-black z-50">
+            <a href="#" class="flex items-center gap-1 pr-4 py-3"><img class="w-[26px]" src="/design/img/back.png" alt=""></a>
+            <div class="flex justify-center font-semibold text-[16px] gap-2"><p>Форум</p> <p class="text-[#414141] font-bold">/</p> <p>Название раздела</p> <p class="text-[#414141] font-bold">/</p> <p>Создать тему</p></div>
+            <button type="button" class="flex items-center gap-1 px-[16px] py-[14px]" data-bottom-sheet-open data-bottom-sheet-target="navbar-actions"><img src="/design/img/more.png" alt=""></button>
+        </div>
+
+        
+        <!--content tabs-->
+        <div class="flex flex-col w-full max-w-[540px] gap-2 bg-[#131313] border border-[#1D1D1D] text-white rounded-[12px]">
+            <div class="flex items-center justify-around gap-1 py-[4px] px-[6px] w-full">
+                    <a href="/modules/user/profile.html" class="flex items-center justify-center text-[#dbdbdb] w-full px-[18px] py-[8px] bg-[#0B0B0B] rounded-[8px] border border-[#1D1D1D] font-semibold">Все</a>
+                    <a href="/modules/user/profile-forum.html" class="flex items-center justify-center text-[#dbdbdb] w-full px-[18px] py-[8px] ">Форум</a>
+                    <a href="/modules/user/profile-blog.html" class="flex items-center justify-center text-[#dbdbdb] w-full px-[18px] py-[8px]">Подписки</a>
+                   
+            </div>
+        </div>
+
+<!--Like Notification Card -->
+<a href="/modules/forum/topic.html" class="relative flex items-start gap-3 w-full max-w-[540px] bg-[#131313] border border-[#1d1d1d] rounded-[10px] p-4 hover:bg-[#1a1a1a] transition">
+  
+  <!-- 🔵 Индикатор нового уведомления -->
+  <span class="absolute top-3 right-3 w-[10px] h-[10px] bg-[#FF0051] z-0 rounded-full shadow-[0_0_8px_#FF0051]"></span>
+
+  <!-- Аватар -->
+  <img src="/design/img/default-avatar.png" alt="avatar" class="w-[40px] h-[40px] rounded-[8px] object-cover flex-shrink-0">
+
+  <!-- Контент -->
+  <div class="flex flex-col text-[#dbdbdb] text-[14px] leading-tight w-full">
+    
+    <!-- Вся строка в одну линию -->
+    <div class="flex flex-wrap items-center gap-[6px]">
+      <span class="font-semibold text-white flex items-center gap-1">
+        shuname
+        <img class="w-[18px] h-[18px]" src="/design/img/badge.png" alt="badge">
+      </span>
+      <span>Поставил "<span class="text-[#31AEEC]">Нравится</span>" к вашему комментарию:</span>
+    </div>
+
+    <!-- Контекстная ссылка -->
+    <div class="flex items-start gap-2 mt-2 px-2 py-[6px] bg-[#1f1f1f] rounded-[6px] border border-[#2a2a2a] text-[13px] text-[#9ca3af] overflow-hidden text-ellipsis break-words">
+      <img src="/design/img/like.png" class="w-[16px] opacity-80 flex-shrink-0 mt-[1px]" alt="">
+      <span class="block break-words">
+        Еще живой, даже пароль вспомнил. Я один из первых, ID 17
+      </span>
+    </div>
+
+    <!-- Время -->
+    <span class="text-[12px] text-[#7c7c7c] mt-2">20 часов назад</span>
+  </div>
+</a>
+
+
+
+
+<!--Reply Notification Card -->
+<a href="/modules/forum/topic.html" class="flex items-start gap-3 w-full max-w-[540px] bg-[#131313] border border-[#1d1d1d] rounded-[10px] p-4 hover:bg-[#1a1a1a] transition">
+  
+  <!-- Аватар -->
+  <img src="/design/img/default-avatar.png" alt="avatar" class="w-[40px] h-[40px] rounded-[8px] object-cover">
+
+  <!-- Контент -->
+  <div class="flex flex-col text-[#dbdbdb] text-[14px] leading-tight w-full">
+    
+    <!-- Вся строка в одну линию -->
+    <div class="flex flex-wrap items-center gap-[6px]">
+      <span class="font-semibold text-white flex items-center gap-1">
+        shuname
+        <img class="w-[18px] h-[18px]" src="/design/img/badge.png" alt="badge">
+      </span>
+      <span>Оставил комментарий к теме:</span>
+      <span class="font-semibold text-[#31AEEC] hover:underline">NomiCMS v3</span>
+    </div>
+
+    <!-- Контекстная ссылка -->
+    <div class="flex items-start gap-2 mt-2 px-2 py-[6px] bg-[#1f1f1f] rounded-[6px] border border-[#2a2a2a] text-[13px] text-[#9ca3af]">
+      <img src="/design/img/reply.png" class="w-[16px] opacity-80" alt="">
+      <span>Еще живой, даже пароль вспомнил. Я один из первых, ID 17
+
+</span>
+    </div>
+
+    <!-- Время -->
+    <span class="text-[12px] text-[#7c7c7c] mt-2">20 часов назад</span>
+  </div>
+</a>
+
+
+
+<!--Admin closed topic Notification Card -->
+<a href="/modules/forum/topic.html" class="flex items-start gap-3 w-full max-w-[540px] bg-[#131313] border border-[#1d1d1d] rounded-[10px] p-4 hover:bg-[#1a1a1a] transition">
+  
+  <!-- Аватар -->
+  <img src="/design/img/default-avatar.png" alt="avatar" class="w-[40px] h-[40px] rounded-[8px] object-cover">
+
+  <!-- Контент -->
+  <div class="flex flex-col text-[#dbdbdb] text-[14px] leading-tight w-full">
+    
+    <!-- Вся строка в одну линию -->
+    <div class="flex flex-wrap items-center gap-[6px]">
+      <span class="font-semibold text-white flex items-center gap-1">
+        shuname
+        <img class="w-[18px] h-[18px]" src="/design/img/badge.png" alt="badge">
+      </span>
+      <span>Закрыл вашу тему:</span>
+      <span class="font-semibold text-[#31AEEC] hover:underline">NomiCMS v3</span>
+    </div>
+
+    <!-- Контекстная ссылка -->
+    <div class="flex items-start gap-2 mt-2 px-2 py-[6px] bg-[#1f1f1f] rounded-[6px] border border-[#2a2a2a] text-[13px] text-[#9ca3af]">
+      <img src="/design/img/topic-close.png" class="w-[16px] opacity-80" alt="">
+      <span>Причина: Нарушаеть правила форума</span>
+    </div>
+
+    <!-- Время -->
+    <span class="text-[12px] text-[#7c7c7c] mt-2">20 часов назад</span>
+  </div>
+</a>
+
+<!--Admin open topic topic Notification Card -->
+<a href="/modules/forum/topic.html" class="flex items-start gap-3 w-full max-w-[540px] bg-[#131313] border border-[#1d1d1d] rounded-[10px] p-4 hover:bg-[#1a1a1a] transition">
+  
+  <!-- Аватар -->
+  <img src="/design/img/default-avatar.png" alt="avatar" class="w-[40px] h-[40px] rounded-[8px] object-cover">
+
+  <!-- Контент -->
+  <div class="flex flex-col text-[#dbdbdb] text-[14px] leading-tight w-full">
+    
+    <!-- Вся строка в одну линию -->
+    <div class="flex flex-wrap items-center gap-[6px]">
+      <span class="font-semibold text-white flex items-center gap-1">
+        shuname
+        <img class="w-[18px] h-[18px]" src="/design/img/badge.png" alt="badge">
+      </span>
+      <span>Открыль вашу тему:</span>
+      <span class="font-semibold text-[#31AEEC] hover:underline">NomiCMS v3</span>
+    </div>
+
+    <!-- Время -->
+    <span class="text-[12px] text-[#7c7c7c] mt-2">20 часов назад</span>
+  </div>
+</a>
+
+<!--Ban Notification Card -->
+<a href="/modules/forum/topic.html" class="flex items-start gap-3 w-full max-w-[540px] bg-[#131313] border border-[#1d1d1d] rounded-[10px] p-4 hover:bg-[#1a1a1a] transition">
+  
+  <!-- Аватар -->
+  <img src="/design/img/default-avatar.png" alt="avatar" class="w-[40px] h-[40px] rounded-[8px] object-cover">
+
+  <!-- Контент -->
+  <div class="flex flex-col text-[#dbdbdb] text-[14px] leading-tight w-full">
+    
+    <!-- Вся строка в одну линию -->
+    <div class="flex flex-wrap items-center gap-[6px]">
+      <span class="font-semibold text-white flex items-center gap-1">
+        shuname
+        <img class="w-[18px] h-[18px]" src="/design/img/badge.png" alt="badge">
+      </span>
+      <span>Вы получили бан! Причина:</span>
+      <span class="font-semibold text-[#FF0051] hover:underline">Флуд</span>
+    </div>
+
+    <!-- Контекстная ссылка -->
+    <div class="flex items-start gap-2 mt-2 px-2 py-[6px] bg-[#1f1f1f] rounded-[6px] border border-[#2a2a2a] text-[13px] text-[#9ca3af]">
+      <img src="/design/img/ban-time.png" class="w-[16px] opacity-80" alt="">
+      <span>Срок бана: 14 дней</span>
+    </div>
+
+    <!-- Время -->
+    <span class="text-[12px] text-[#7c7c7c] mt-2">20 часов назад</span>
+  </div>
+</a>
+
+<!--Followers Notification Card -->
+<a href="/modules/forum/topic.html" class="flex items-start gap-3 w-full max-w-[540px] bg-[#131313] border border-[#1d1d1d] rounded-[10px] p-4 hover:bg-[#1a1a1a] transition">
+  
+  <!-- Аватар -->
+  <img src="/design/img/default-avatar.png" alt="avatar" class="w-[40px] h-[40px] rounded-[8px] object-cover">
+
+  <!-- Контент -->
+  <div class="flex flex-col text-[#dbdbdb] text-[14px] leading-tight w-full">
+    
+    <!-- Вся строка в одну линию -->
+    <div class="flex flex-wrap items-center gap-[6px]">
+      <span class="font-semibold text-white flex items-center gap-1">
+        shuname
+        <img class="w-[18px] h-[18px]" src="/design/img/badge.png" alt="badge">
+      </span>
+      <span>Создаль новый тему:</span>
+      <span class="font-semibold text-[#31AEEC] hover:underline">Admin-chat</span>
+    </div>
+
+
+    <!-- Время -->
+    <span class="text-[12px] text-[#7c7c7c] mt-2">20 часов назад</span>
+  </div>
+</a>
+
+
+<!--New Followers Notification Card -->
+<a href="/modules/forum/topic.html" class="flex items-start gap-3 w-full max-w-[540px] bg-[#131313] border border-[#1d1d1d] rounded-[10px] p-4 hover:bg-[#1a1a1a] transition">
+  
+  <!-- Аватар -->
+  <img src="/design/img/default-avatar.png" alt="avatar" class="w-[40px] h-[40px] rounded-[8px] object-cover">
+
+  <!-- Контент -->
+  <div class="flex flex-col text-[#dbdbdb] text-[14px] leading-tight w-full">
+    
+    <!-- Вся строка в одну линию -->
+    <div class="flex flex-wrap items-center gap-[6px]">
+      <span class="font-semibold text-white flex items-center gap-1">
+        shuname
+        <img class="w-[18px] h-[18px]" src="/design/img/badge.png" alt="badge">
+      </span>
+      <span>Подписался на вас</span>
+    </div>
+
+
+    <!-- Время -->
+    <span class="text-[12px] text-[#7c7c7c] mt-2">20 часов назад</span>
+  </div>
+</a>
+
+<!--unFollow Notification Card -->
+<a href="/modules/forum/topic.html" class="flex items-start gap-3 w-full max-w-[540px] bg-[#131313] border border-[#1d1d1d] rounded-[10px] p-4 hover:bg-[#1a1a1a] transition">
+  
+  <!-- Аватар -->
+  <img src="/design/img/default-avatar.png" alt="avatar" class="w-[40px] h-[40px] rounded-[8px] object-cover">
+
+  <!-- Контент -->
+  <div class="flex flex-col text-[#dbdbdb] text-[14px] leading-tight w-full">
+    
+    <!-- Вся строка в одну линию -->
+    <div class="flex flex-wrap items-center gap-[6px]">
+      <span class="font-semibold text-white flex items-center gap-1">
+        shuname
+        <img class="w-[18px] h-[18px]" src="/design/img/badge.png" alt="badge">
+      </span>
+      <span>Отписалься от вас</span>
+    </div>
+
+
+    <!-- Время -->
+    <span class="text-[12px] text-[#7c7c7c] mt-2">20 часов назад</span>
+  </div>
+</a>
+
+    </div>
+
+<div id="navbar-bottom-sheet" data-bottom-sheet="navbar-actions" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+        <div class="absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300" data-bottom-sheet-overlay></div>
+        <div class="absolute bottom-0 left-0 right-0 bg-[#131313] border-t border-[#1D1D1D] rounded-t-[16px] px-4 pt-4 pb-6 translate-y-full transition-transform duration-300" data-bottom-sheet-panel role="menu">
+            <div class="mx-auto mb-4 h-[4px] w-12 rounded-full bg-[#2E2E2E]"></div>
+            <div class="flex flex-col items-center gap-2 text-[#F5F5F5] text-[14px]">
+                <button type="button" class="flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-2 px-4 text-left hover:bg-[#252525]" data-bottom-sheet-dismiss data-bottom-sheet-action="edit">Обновить страницу</button>
+                <button type="button" class="flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-2 px-4 text-left hover:bg-[#252525]" data-bottom-sheet-dismiss data-bottom-sheet-action="notify">Написать в поддержку</button>
+                <button type="button" class="flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-2 px-4 text-left hover:bg-[#252525]" data-bottom-sheet-dismiss data-bottom-sheet-action="share">Поддержать проект</button>
+                <button type="button" class="mt-4 w-full max-w-[540px] rounded-[10px] border border-[#232323] p-2 text-[#F5F5F5] hover:bg-[#1C1C1C]" data-bottom-sheet-dismiss>Закрыть</button>
+            </div>
+            </div>
+    </div>
+    <script>
+  // Автоматическое изменение высоты для всех textarea с [data-autosize]
+  const fit = (el) => {
+    el.style.height = 'auto';                 // сброс
+    el.style.height = el.scrollHeight + 'px'; // подгон по контенту
+  };
+
+  // Инициализация на старте
+  document.querySelectorAll('[data-autosize]').forEach(fit);
+
+  // Обработка ввода (ввод, удаление, вставка)
+  document.addEventListener('input', (e) => {
+    if (e.target.matches('[data-autosize]')) fit(e.target);
+  });
+
+  // Bottom sheet menu interactions
+  (function () {
+    const sheets = Array.from(document.querySelectorAll('[data-bottom-sheet]'));
+    if (!sheets.length) return;
+    const openButtons = Array.from(document.querySelectorAll('[data-bottom-sheet-open]'));
+    if (!openButtons.length) return;
+
+    const sheetMap = new Map();
+    let activeSheet = null;
+
+    function ensureClosed(state) {
+      state.panel.classList.add('translate-y-full');
+      state.overlay.classList.add('opacity-0');
+      state.sheet.classList.add('hidden');
+    }
+
+    function closeSheet(state) {
+      if (!state || state.sheet.classList.contains('hidden')) return;
+      state.overlay.classList.add('opacity-0');
+      state.panel.classList.add('translate-y-full');
+
+      const onTransitionEnd = (event) => {
+        if (event.target !== state.panel) return;
+        if (!state.panel.classList.contains('translate-y-full')) return;
+        state.sheet.classList.add('hidden');
+        if (activeSheet === state) {
+          activeSheet = null;
+          document.removeEventListener('keydown', handleEscape);
+        }
+      };
+
+      state.panel.addEventListener('transitionend', onTransitionEnd, { once: true });
+    }
+
+    function handleEscape(event) {
+      if (event.key !== 'Escape' || !activeSheet) return;
+      closeSheet(activeSheet);
+    }
+
+    function openSheet(state) {
+      if (!state) return;
+
+      if (activeSheet && activeSheet !== state) {
+        closeSheet(activeSheet);
+      }
+
+      activeSheet = state;
+      state.sheet.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        state.overlay.classList.remove('opacity-0');
+        state.panel.classList.remove('translate-y-full');
+      });
+
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    sheets.forEach((sheet, index) => {
+      const panel = sheet.querySelector('[data-bottom-sheet-panel]');
+      const overlay = sheet.querySelector('[data-bottom-sheet-overlay]');
+      if (!panel || !overlay) return;
+
+      const dismissButtons = Array.from(sheet.querySelectorAll('[data-bottom-sheet-dismiss]'));
+      const identifiers = [
+        sheet.dataset.bottomSheet,
+        sheet.id,
+        `bottom-sheet-${index + 1}`
+      ].filter(Boolean);
+
+      if (!identifiers.length) return;
+
+      const state = { id: identifiers[0], sheet, panel, overlay, dismissButtons };
+      identifiers.forEach((value) => sheetMap.set(value, state));
+
+      ensureClosed(state);
+
+      overlay.addEventListener('click', () => closeSheet(state));
+      sheet.addEventListener('click', (event) => {
+        if (event.target === sheet) {
+          closeSheet(state);
+        }
+      });
+
+      dismissButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          closeSheet(state);
+        });
+      });
+    });
+
+    if (!sheetMap.size) return;
+    const defaultSheet = sheetMap.values().next().value;
+
+    openButtons.forEach((button) => {
+      const targetId = button.dataset.bottomSheetTarget || button.getAttribute('data-bottom-sheet-open');
+      const state = targetId ? sheetMap.get(targetId) : defaultSheet;
+      if (!state) return;
+
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        openSheet(state);
+      });
+    });
+  })();
+
+</script>
+</body>
+</html>

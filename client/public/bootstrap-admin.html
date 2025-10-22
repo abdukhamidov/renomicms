@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bootstrap Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        background: #121212;
+        color: #f5f5f5;
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .card {
+        background: #1e1e1e;
+        padding: 24px;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 360px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      }
+      label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 6px;
+        color: #bdbdbd;
+      }
+      input {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #333;
+        background: #161616;
+        color: inherit;
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+      button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        background: #32afed;
+        color: #000;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.6;
+        cursor: progress;
+      }
+      .message {
+        margin-top: 16px;
+        font-size: 13px;
+        min-height: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1 style="margin-bottom: 16px; font-size: 20px">Выдача прав администратора</h1>
+      <form id="bootstrap-form">
+        <label for="apiBase">API адрес</label>
+        <input
+          id="apiBase"
+          name="apiBase"
+          placeholder="http://localhost:4000"
+          value=""
+        />
+
+        <label for="username">Имя пользователя</label>
+        <input id="username" name="username" placeholder="admin" required />
+
+        <label for="token">Секретный токен</label>
+        <input id="token" name="token" type="password" placeholder="bootstrap-secret" required />
+
+        <button type="submit">Назначить админом</button>
+      </form>
+      <div class="message" id="message"></div>
+    </div>
+
+    <script>
+      const form = document.getElementById("bootstrap-form");
+      const messageEl = document.getElementById("message");
+      const submitButton = form.querySelector("button[type=submit]");
+
+      function setMessage(text, isError = false) {
+        messageEl.textContent = text;
+        messageEl.style.color = isError ? "#f87171" : "#a7f3d0";
+      }
+
+      if ((window.API_BASE_URL ?? window.__APP_API_BASE_URL__ ?? "").trim().length === 0) {
+        form.apiBase.placeholder = window.location.origin;
+      } else if (!form.apiBase.value) {
+        form.apiBase.value = (window.API_BASE_URL ?? window.__APP_API_BASE_URL__ ?? "").trim();
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        setMessage("");
+        submitButton.disabled = true;
+
+        const rawBase = form.apiBase.value.trim();
+        const detectedBase = (window.API_BASE_URL ?? window.__APP_API_BASE_URL__ ?? "").trim();
+        const apiBase =
+          rawBase.length > 0
+            ? rawBase.replace(/\/+$/, "")
+            : detectedBase.length > 0
+              ? detectedBase.replace(/\/+$/, "")
+              : "";
+        const username = form.username.value.trim();
+        const token = form.token.value.trim();
+
+        const endpointBase = apiBase.length > 0 ? `${apiBase}/users/bootstrap-admin` : "/users/bootstrap-admin";
+        const endpoint = endpointBase.replace(/([^:]\/)\/+/g, "$1");
+
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, token }),
+          });
+
+          const textBody = await response.text();
+          let payload = null;
+          if (textBody && textBody.length > 0) {
+            try {
+              payload = JSON.parse(textBody);
+            } catch {
+              throw new Error(textBody);
+            }
+          }
+
+          if (!response.ok || !payload) {
+            const fallbackMessage =
+              (payload && typeof payload === "object" && payload.message) || textBody || `Ошибка ${response.status}`;
+            throw new Error(fallbackMessage);
+          }
+
+          setMessage(`Пользователь ${payload?.user?.username ?? username} теперь администратор.`);
+        } catch (error) {
+          setMessage(error.message ?? "Не удалось обновить роль.", true);
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

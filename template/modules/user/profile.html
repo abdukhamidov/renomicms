@@ -1,0 +1,485 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/design/style.css">
+    <title>reNomicms</title>
+</head>
+<body class="bg-black m-[auto] flex flex-col items-center justify-center gap-1 sm:gap-4 pb-[70px] sm:pb-[70px] sm:flex-row sm:items-start">
+
+
+    <!--SIDEBAR (only for desktop)-->
+    <div class="hidden sm:flex flex-col gap-2 items-start top-0 w-[220px] text-white ml-[-240px] sticky z-50">
+        <div class="flex items-center px-[12px] py-4 w-full">
+            <a href="#" class="flex gap-2 items-center text-[18px] font-bold"><img src="/design/img/logo-icon.png" alt=""> NomiCMS</a>
+        </div>
+        <div class="flex flex-col bg-[#080808] rounded-[8px] w-full gap-1 text-[16px]">
+            <a href="/modules/user/profile.html" class="flex items-start gap-3 px-[12px] py-[10px] border-b border-black">
+                    <img width="42" class="rounded-[8px]" src="/design/img/default-avatar.png" alt="">
+                <div>
+                    <p>shuname</p>
+                    <p class="text-[12px] text-[#dbdbdb]">Перейти в профиль</p>
+                </div>
+            </a>
+
+            
+        </div>
+
+        <div class="flex flex-col w-full gap-1 text-[16px] border-b border-[#0f0f0f] pb-2">
+            <a href="#" class="flex justify-between items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616]"><p class="flex items-center gap-2"><img src="/design/img/mail-sidebar.png" alt="">Сообщение</p> <p class="min-w-[20px] h-[20px] px-[6px] rounded-full bg-[#ED3426] text-white
+                     text-[12px] font-bold flex items-center justify-center leading-none
+                      pointer-events-none">5</p></a>
+            <a href="#" class="flex justify-between items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616]"><p class="flex items-center gap-2"><img src="/design/img/notification-sidebar.png" alt="">Уведомление</p> <p class="min-w-[20px] h-[20px] px-[6px] rounded-full bg-[#ED3426] text-white
+                     text-[12px] font-bold flex items-center justify-center leading-none
+                      pointer-events-none">5</p></a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616]"><img src="/design/img/settings-sidebar.png" alt="">Настройки</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616]"><img src="/design/img/logout-sidebar.png" alt="">Выйти</a>
+        </div>
+
+        <div class="flex flex-col w-full gap-1 text-[16px] border-b border-[#0f0f0f] pb-2">
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/home.png" alt="">Главная</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/news-sidebar.png" alt="">Новости</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/forum-sidebar.png" alt="">Форум</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/blog-sidebar.png" alt="">Блог</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/chat-sidebar.png" alt="">Мини-чат</a>
+            <a href="#" class="flex items-center gap-3 px-[12px] py-[8px] text-[#dbdbdb] font-bold rounded-[8px] hover:bg-[#161616] transition-transform duration-300 ease-out"><img src="/design/img/users-sidebar.png" alt="">Пользователи</a>
+        </div>
+
+        <div class="flex items-center justify-between w-full text-[12px] text-[#777777] font-semibold">
+          <a href="#" class="px-[12px] py-[8px] pt-0 hover:text-[#dbdbdb] transition-transform duration-300 ease-out">Помощь</a>
+          <a href="#" class="px-[12px] py-[8px] pt-0 hover:text-[#dbdbdb] transition-transform duration-300 ease-out">Админи</a>
+          <p class="px-[12px] py-[8px] pt-0">G: 0.0045</p>
+        </div>
+    </div>
+
+    <!--mobile header (sticky top)-->
+    <div class="flex z-50 items-center justify-between w-full bg-[#131313] border-b border-[#1D1D1D] text-[#dbdbdb] sticky top-0 sm:hidden">
+      <a href="#" class="flex items-center gap-1 px-[16px] py-[14px]"><img src="/design/img/back.png" alt=""></a>
+      <div class="flex justify-center font-semibold">shuname</div>
+      <button type="button" class="flex items-center gap-1 px-[16px] py-[14px]" data-bottom-sheet-open data-bottom-sheet-target="navbar-actions"><img src="/design/img/more.png" alt=""></button>
+    </div>
+
+<!-- ✅ mobile navbar — FIXED bottom + equal width links -->
+<div class="fixed bottom-0 left-0 right-0 sm:hidden z-50
+            bg-[#131313] border-t border-[#1D1D1D] text-[#dbdbdb] h-[70px]
+
+">
+  <!-- весь ряд на всю ширину -->
+  <nav class="w-full h-full flex">
+
+    <!-- Главная -->
+    <a href="#"
+       class="flex-1 h-full flex flex-col items-center justify-center gap-1 mt-[-5px]">
+      <span class="relative inline-block">
+        <img src="/design/img/navbar-home.png" alt="">
+      </span>
+      <span class="text-[10px]">Главная</span>
+    </a>
+
+    <!-- Уведомления -->
+    <a href="#"
+       class="flex-1 h-full flex flex-col items-center justify-center gap-1 mt-[-5px]">
+      <span class="relative inline-block">
+        <img src="/design/img/navbar-notification.png" alt="">
+        <!-- badge -->
+        <span class="absolute -top-1 -right-1 translate-x-1/4 -translate-y-1/0
+                     min-w-[18px] h-[18px] px-[6px] rounded-full bg-[#ED3426] text-white
+                     text-[10px] font-bold flex items-center justify-center leading-none
+                     ring-2 ring-[#131313] pointer-events-none">5</span>
+      </span>
+      <span class="text-[10px]">Уведомление</span>
+    </a>
+
+    <!-- Чаты -->
+    <a href="#"
+       class="flex-1 h-full flex flex-col items-center justify-center gap-1 mt-[-5px]">
+      <span class="relative inline-block">
+        <img src="/design/img/navbar-mail.png" alt="">
+        <!-- badge -->
+        <span class="absolute -top-1 -right-1 translate-x-1/4 -translate-y-1/0
+                     min-w-[18px] h-[18px] px-[6px] rounded-full bg-[#ED3426] text-white
+                     text-[10px] font-bold flex items-center justify-center leading-none
+                     ring-2 ring-[#131313] pointer-events-none">4</span>
+      </span>
+      <span class="text-[10px]">Чаты</span>
+    </a>
+
+    <!-- Профиль -->
+    <a href="#"
+       class="flex-1 h-full flex flex-col items-center justify-center gap-1 mt-[-5px]">
+      <span class="relative inline-block">
+        <img class="rounded-full w-[24px] h-[24px]" src="/design/img/default-avatar.png" alt="">
+      </span>
+      <span class="text-[10px]">Профиль</span>
+    </a>
+
+  </nav>
+</div>
+
+
+    <!--content-->
+    <div class="w-full max-w-[540px] flex flex-col gap-2 items-center text-[14px] p-3 sm:gap-4 sm:p-0">
+
+        <!--Navigation-->
+        <div class="hidden sm:flex items-center pt-1 justify-between w-full text-[#dbdbdb] sticky top-0 bg-black z-50">
+            <a href="#" class="flex items-center gap-1 pr-4 py-3"><img class="w-[26px]" src="/design/img/back.png" alt=""></a>
+            <div class="flex justify-center font-semibold text-[16px] gap-2"><p>Пользователи</p> <p class="text-[#414141] font-bold">/</p> <p>shuname</p> </div>
+            <button type="button" class="flex items-center gap-1 pl-4 py-3" data-bottom-sheet-open data-bottom-sheet-target="navbar-actions"><img class="w-[26px]" src="/design/img/more.png" alt=""></button>
+        </div>
+
+        <!--profile card-->
+        <div class="flex flex-col w-full bg-[#131313] border border-[#1D1D1D] text-white rounded-[12px]">
+            <div class="flex items-start justify-end h-[110px] sm:h-[160px] w-full bg-[url(/design/img/profile-cover.png)] bg-cover bg-center rounded-[12px]"><button type="button" class="p-4" data-bottom-sheet-open data-bottom-sheet-target="profile-actions"><img class="w-6" src="/design/img/more-gray.png" alt=""></button></div>
+            <div class="flex items-start justify-between w-full">
+                <div class="flex">
+                    <a href="#" class="p-4 pb-0 pt-0 mt-[-24px]"><img class="w-[80px] rounded-[12px]" src="/design/img/default-avatar.png" alt=""></a>
+                <div class="flex flex-col">
+                    <span class="flex items-center gap-1 font-bold text-[18px] px-0 py-2 pb-0">shuname <img class="w-[18px]" src="/design/img/badge.png" alt=""></span>
+                    <span class="text-[#dbdbdb] text-[14px] px-0 pt-0 py-2">Сейчас онлайн</span>
+                </div>
+                </div>
+                <div class="hidden sm:flex items-center gap-3 px-4 py-2 pb-0">
+                        <button class="flex items-center gap-2 bg-[#32afed] px-[12px] py-[6px] rounded-[8px] text-[#000000] font-bold hover:bg-[#3abdff]"><img src="/design/img/mail-black.png" alt="">Написать</button>
+                        <button class="flex items-center gap-2 bg-[#ffffff] px-[12px] py-[6px] rounded-[8px] text-[#000000] font-bold hover:bg-[#e6e6e6]"><img src="/design/img/add.png" alt=""></button>
+                </div>
+            </div>
+            <!--about-->
+            <div class="flex flex-col px-4 py-2 gap-2">
+                <span class="text-[16px] text-[#e1e1e1]">Не отвечаю? Значит занят. Либо спасаю мир, либо опустошаю холодильник.</span>
+            </div>
+
+            <div class="flex items-center gap-3 px-4 py-4 pt-1 sm:hidden">
+                        <button class="flex items-center gap-2 bg-[#32afed] px-[12px] py-[6px] rounded-[8px] text-[#000000] font-bold hover:bg-[#2b99cf]"><img src="/design/img/mail-black.png" alt="">Написать</button>
+                        <button class="flex items-center gap-2 bg-[#ffffff] px-[12px] py-[6px] rounded-[8px] text-[#000000] font-bold hover:bg-[#e6e6e6]"><img src="/design/img/add.png" alt=""></button>
+            </div>
+        </div>
+
+        <!--content tabs-->
+        <div class="flex flex-col w-full max-w-[540px] gap-2 bg-[#131313] border border-[#1D1D1D] text-white rounded-[12px]">
+            <div class="flex items-center justify-around gap-3 py-[4px] px-[6px] w-full">
+                    <a href="/modules/user/profile.html" class="flex items-center justify-center text-[#dbdbdb] w-full px-[18px] py-[8px] bg-[#0B0B0B] rounded-[8px] border border-[#1D1D1D] font-semibold">Стена</a>
+                    <a href="/modules/user/profile-forum.html" class="flex items-center justify-center text-[#dbdbdb] w-full px-[18px] py-[8px] ">Форум</a>
+                    <a href="/modules/user/profile-blog.html" class="flex items-center justify-center text-[#dbdbdb] w-full px-[18px] py-[8px]">Блог</a>
+            </div>
+        </div>
+
+
+        <!--send post-->
+        <div class="flex flex-col w-full max-w-[540px] gap-2 bg-[#131313] border border-[#1D1D1D] text-white p-[16px] rounded-[12px]">
+            <!--reply-->
+            <div class="flex items-start gap-2 pb-2"><img class="mt-[12px]" src="/design/img/reply.png" alt=""><p class="w-full rounded-[8px] text-[#e1e1e1] px-3 py-2 border border-[#1D1D1D]"><b>December,</b> Да. Шикарное было увлечение на тот момент smile С php и css многие здесь начинали осваивать!</p><button><img class="p-2 pr-0 pl-1" src="/design/img/close.png" alt=""></button></div>
+            <!--reply end-->
+            <form action="" class="flex flex-col w-full max-w-[540px]">
+    <textarea
+      data-autosize
+      rows="1"
+      placeholder="Хотите ответить? Поделитесь мнением"
+      class="w-full bg-[#131313] text-[#dbdbdb] placeholder:text-[#8C8C8C]
+             resize-none overflow-hidden leading-[1.4]
+             border-0 focus:ring-0 focus:outline-none
+             min-h-[32px] max-h-[50vh]"></textarea>
+  </form>
+
+  <div class="flex items-center justify-between">
+    <div class="flex gap-3">
+      <button class="p-1 pl-0 pb-0"><img src="/design/img/image.png" alt=""></button>
+      <button class="p-1 pb-0"><img src="/design/img/text-font.png" alt=""></button>
+    </div>
+    <button class="py-[6px] px-[8px] font-bold text-[#000000] bg-[#32afed] hover:bg-[#2b99cf] rounded-[8px]">
+      Отправить
+    </button>
+  </div>
+</div>
+
+        <!--if no comments-->
+        <div class="flex flex-col items-center justify-center text-[#dbdbdb]">
+        <div class="w-[120px] h-[120px]"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 348 320" width="320" height="320" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%; transform: translate3d(0px, 0px, 0px); content-visibility: visible;"><defs><clipPath id="__lottie_element_160"><rect width="320" height="320" x="0" y="0"></rect></clipPath><g id="__lottie_element_161"><g transform="matrix(0.9999999403953552,0,0,0.9999999403953552,142.81900024414062,139.00201416015625)" opacity="1" style="display: block;"><g opacity="0.7000000000000001" transform="matrix(1,0,0,1,0,0)"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" stroke="rgb(50,175,237)" stroke-opacity="1" stroke-width="13.696" d=" M6.8480000495910645,6.8480000495910645 C6.8480000495910645,6.8480000495910645 90.4020004272461,6.8480000495910645 90.4020004272461,6.8480000495910645"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" stroke="rgb(50,175,237)" stroke-opacity="1" stroke-width="13.696" d=" M6.8480000495910645,34.92100143432617 C6.8480000495910645,34.92100143432617 90.4020004272461,34.92100143432617 90.4020004272461,34.92100143432617"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" stroke="rgb(50,175,237)" stroke-opacity="1" stroke-width="13.696" d=" M81.10399627685547,62.191001892089844 C81.10399627685547,62.191001892089844 90.4020004272461,62.191001892089844 90.4020004272461,62.191001892089844"></path></g><path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" stroke="rgb(50,175,237)" stroke-opacity="1" stroke-width="13.696" d=" M6.8480000495910645,62.191001892089844 C6.8480000495910645,62.191001892089844 49.55500030517578,62.191001892089844 49.55500030517578,62.191001892089844"></path></g></g></g><g id="__lottie_element_167"><g transform="matrix(1.0000004768371582,0,0,1.0000004768371582,55.70001220703125,189.89398193359375)" opacity="1" style="display: block;"><g opacity="0.7000000000000001" transform="matrix(1,0,0,1,0,0)"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" stroke="rgb(50,175,237)" stroke-opacity="1" stroke-width="9.131" d=" M4.565000057220459,4.565000057220459 C4.565000057220459,4.565000057220459 55.74800109863281,4.565000057220459 55.74800109863281,4.565000057220459"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" stroke="rgb(50,175,237)" stroke-opacity="1" stroke-width="9.131" d=" M4.565000057220459,21.76300048828125 C4.565000057220459,21.76300048828125 55.74800109863281,21.76300048828125 55.74800109863281,21.76300048828125"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" stroke="rgb(50,175,237)" stroke-opacity="1" stroke-width="9.131" d=" M41.36600112915039,38.46799850463867 C41.36600112915039,38.46799850463867 55.74800109863281,38.46799850463867 55.74800109863281,38.46799850463867"></path></g><path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" stroke="rgb(50,175,237)" stroke-opacity="1" stroke-width="9.131" d=" M4.565000057220459,38.46799850463867 C4.565000057220459,38.46799850463867 22.040000915527344,38.46799850463867 22.040000915527344,38.46799850463867"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,79,79)" fill-opacity="1" d=" M65.34400177001953,-34.9739990234375 C56.59600067138672,-15.958999633789062 63.21200180053711,48.65399932861328 88.50800323486328,54.47600173950195 C115.26699829101562,60.6349983215332 102.55500030517578,-2.203000068664551 93.1510009765625,-18.000999450683594 C74.85900115966797,-48.729000091552734 72.70800018310547,-50.98099899291992 65.34400177001953,-34.9739990234375z"></path></g></g></g><filter id="__lottie_element_173" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%"><feComponentTransfer in="SourceGraphic"><feFuncA type="table" tableValues="1.0 0.0"></feFuncA></feComponentTransfer></filter><mask id="__lottie_element_167_2" mask-type="alpha"><g filter="url(#__lottie_element_173)"><rect width="320" height="320" x="0" y="0" fill="#ffffff" opacity="0"></rect><use xlink:href="#__lottie_element_167"></use></g></mask><filter id="__lottie_element_174" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%"><feComponentTransfer in="SourceGraphic"><feFuncA type="table" tableValues="1.0 0.0"></feFuncA></feComponentTransfer></filter><mask id="__lottie_element_161_2" mask-type="alpha"><g filter="url(#__lottie_element_174)"><rect width="320" height="320" x="0" y="0" fill="#ffffff" opacity="0"></rect><use xlink:href="#__lottie_element_161"></use></g></mask></defs><g clip-path="url(#__lottie_element_160)"><g mask="url(#__lottie_element_167_2)" style="display: block;"><g transform="matrix(1.0000004768371582,0,0,1.0000004768371582,27.580997467041016,149.41195678710938)" opacity="1"><g opacity="1" transform="matrix(1,0,0,1,59.39500045776367,60.097999572753906)"><path fill="rgb(49,174,236)" fill-opacity="1" d=" M0.25099998712539673,-59.847999572753906 C-32.275001525878906,-59.847999572753906 -58.643001556396484,-33.47999954223633 -58.643001556396484,-0.9539999961853027 C-58.643001556396484,8.27400016784668 -56.512001037597656,16.999000549316406 -52.72600173950195,24.770999908447266 C-49.50600051879883,31.48699951171875 -51.81399917602539,36.494998931884766 -51.81399917602539,36.494998931884766 C-51.81399917602539,36.494998931884766 -57.11899948120117,49.755001068115234 -57.11899948120117,49.755001068115234 C-59.14500045776367,54.81999969482422 -54.11800003051758,59.8489990234375 -49.051998138427734,57.821998596191406 C-49.051998138427734,57.821998596191406 -35.63999938964844,52.45600128173828 -35.63999938964844,52.45600128173828 C-35.63999938964844,52.45600128173828 -30.47800064086914,49.89799880981445 -24.065000534057617,52.68600082397461 C-16.652999877929688,56.055999755859375 -8.42300033569336,57.93899917602539 0.25099998712539673,57.93899917602539 C32.777000427246094,57.93899917602539 59.14500045776367,31.57200050354004 59.14500045776367,-0.9539999961853027 C59.14500045776367,-33.47999954223633 32.777000427246094,-59.847999572753906 0.25099998712539673,-59.847999572753906z"></path></g></g></g><g mask="url(#__lottie_element_161_2)" style="display: block;"><g transform="matrix(0.9999999403953552,0,0,0.9999999403953552,93.47700500488281,71.53800964355469)" opacity="1"><g opacity="1" transform="matrix(1,0,0,1,98.38400268554688,99.552001953125)"><path fill="rgb(49,174,236)" fill-opacity="1" d=" M-98.13400268554688,-1.5850000381469727 C-98.13400268554688,52.382999420166016 -54.38399887084961,96.13300323486328 -0.41600000858306885,96.13300323486328 C13.975000381469727,96.13300323486328 27.631000518798828,93.00700378417969 39.92900085449219,87.41500091552734 C50.56800079345703,82.78800201416016 59.13399887084961,87.03600311279297 59.13399887084961,87.03600311279297 C59.13399887084961,87.03600311279297 81.38700103759766,95.93900299072266 81.38700103759766,95.93900299072266 C89.79299926757812,99.302001953125 98.13400268554688,90.95999908447266 94.77100372314453,82.55500030517578 C94.77100372314453,82.55500030517578 85.97000122070312,60.55500030517578 85.97000122070312,60.55500030517578 C85.97000122070312,60.55500030517578 82.13999938964844,52.242000579833984 87.48300170898438,41.0989990234375 C93.76499938964844,28.202999114990234 97.3010025024414,13.72599983215332 97.3010025024414,-1.5850000381469727 C97.3010025024414,-55.553001403808594 53.551998138427734,-99.3010025024414 -0.41600000858306885,-99.3010025024414 C-54.38399887084961,-99.3010025024414 -98.13400268554688,-55.553001403808594 -98.13400268554688,-1.5850000381469727z"></path></g></g></g></g></svg></div>
+        <p class="text-[16px] font-bold">Нет коментарии</p>
+        <p>Будте первым напишите коментарю</p>
+        </div>
+        <!--if no comments end-->
+
+<div class="flex flex-col w-full max-w-[540px] gap-2 bg-[#131313] border-t border-r border-l border-[#1D1D1D] text-white rounded-[12px]">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 pl-[16px]"><img src="/design/img/comment-gray.png" alt=""><p class="text-[#e1e1e1]">Сообщение: 5</p></div>
+                <button class="flex items-center gap-2 p-[16px]"><img src="/design/img/settings.png" alt=""></button>
+            </div>
+        </div>
+
+        <!--comments 2-->
+        <div class="flex flex-col w-full max-w-[540px] gap-2 bg-[#131313] border-t border-r border-l border-[#1D1D1D] text-white p-[16px] rounded-[12px]">
+            <div class="flex justify-between gap-2 ">
+             <div class="flex gap-2">
+                <a href="#"><img class="w-[42px] h-[42px] rounded-[8px] object-cover" src="/design/img/avatar2.jpg" alt=""></a>
+                <div class="flex flex-col justify-center gap-1">
+                    <div class="flex items-center gap-1"><div class="font-semibold text-[16px]"><a href="#">December</a></div><img class="w-[18px]" src="/design/img/badge.png" alt=""></div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex text-[12px] text-[#e1e1e1] mt-[-4px]">Сегодня в 14:52</div>
+                        </div>
+                </div>
+             </div>
+                <div class="flex items-start justify-end">
+                    <button type="button" data-bottom-sheet-open data-bottom-sheet-target="profile-actions"><img class="p-2 hover:bg-[#1D1D1D] rounded-[8px]" src="/design/img/more-gray.png" alt=""></button>
+                </div>
+            </div>
+            <div>
+                    <p class="text-[#e1e1e1] text-[16px]">Да. Шикарное было увлечение на тот момент smile С php и css многие здесь начинали осваивать! Прекрасные времена были, сколько азарта было, создать что-то новое, интересное))) Всем привет кто с прошлого, новичкам успехов в достижении целей!!</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center pb-0 gap-2">
+                        <button class="p-2 hover:bg-[#0d1f12] rounded-[9999px]"><img width="18" height="18" src="/design/img/vote-up.png" alt=""></button>
+                        <span class="cursor-pointer">-</span>
+                        <button class="p-2 hover:bg-[#61111f] rounded-[9999px]"><img src="/design/img/vote-down.png" alt=""></button>
+                    </div>
+                    <button class="py-[6px] px-[8px] text-[#31AEEC] hover:bg-[#0c2836] rounded-[8px]">Ответить</button>
+                </div>
+        </div>
+
+        <!--comments 3-->
+        <div class="flex flex-col w-full max-w-[540px] gap-2 bg-[#131313] border-t border-r border-l border-[#1D1D1D] text-white p-[16px] rounded-[12px]">
+            <div class="flex justify-between gap-2 ">
+             <div class="flex gap-2">
+                <a href="#"><img class="w-[42px] h-[42px] rounded-[8px] object-cover" src="/design/img/avatar3.jpg" alt=""></a>
+                <div class="flex flex-col justify-center gap-1">
+                    <div class="flex items-center gap-1"><div class="font-semibold text-[16px]"><a href="#">RajKapur</a></div><img class="w-[18px]" src="/design/img/badge.png" alt=""></div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex text-[12px] text-[#e1e1e1] mt-[-4px]">Сегодня в 14:52</div>
+                        </div>
+                </div>
+             </div>
+                <div class="flex items-start justify-end">
+                    <button type="button" data-bottom-sheet-open data-bottom-sheet-target="profile-actions"><img class="p-2 hover:bg-[#1D1D1D] rounded-[8px]" src="/design/img/more-gray.png" alt=""></button>
+                </div>
+            </div>
+            <div>
+                    <p class="text-[#e1e1e1] text-[16px]">Я остался с тех времен</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center pb-0 gap-2">
+                        <button class="p-2 hover:bg-[#0d1f12] rounded-[9999px]"><img width="18" height="18" src="/design/img/vote-up.png" alt=""></button>
+                        <span class="cursor-pointer">5</span>
+                        <button class="p-2 hover:bg-[#61111f] rounded-[9999px]"><img src="/design/img/vote-down.png" alt=""></button>
+                    </div>
+                    <button class="py-[6px] px-[8px] text-[#31AEEC] hover:bg-[#0c2836] rounded-[8px]">Ответить</button>
+                </div>
+        </div>
+
+         <!--comments 4-->
+        <div class="flex flex-col w-full max-w-[540px] gap-2 bg-[#131313] border-t border-r border-l border-[#1D1D1D] text-white p-[16px] rounded-[12px]">
+             <div class="flex justify-between gap-2 ">
+             <div class="flex gap-2">
+                <a href="#"><img class="w-[42px] h-[42px] rounded-[8px] object-cover" src="/design/img/avatar4.jpg" alt=""></a>
+                <div class="flex flex-col justify-center gap-1">
+                    <div class="flex items-center gap-1"><div class="font-semibold text-[16px]"><a href="#">anch1k</a></div><img class="w-[18px]" src="/design/img/badge.png" alt=""></div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex text-[12px] text-[#e1e1e1] mt-[-4px]">Сегодня в 14:52</div>
+                        </div>
+                </div>
+             </div>
+                <div class="flex items-start justify-end">
+                    <button type="button" data-bottom-sheet-open data-bottom-sheet-target="profile-actions"><img class="p-2 hover:bg-[#1D1D1D] rounded-[8px]" src="/design/img/more-gray.png" alt=""></button>
+                </div>
+            </div>
+            <div class="flex flex-col gap-2">
+                    <!--uploaded photo-->
+                    <img class="rounded-[8px]" src="/design/img/perlamur.jpg" alt="">
+                    <!--uploaded photo end-->
+                    <p class="text-[#e1e1e1] text-[16px]">Ну я с тех времени))</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center pb-0 gap-2">
+                        <button class="p-2 hover:bg-[#0d1f12] rounded-[9999px]"><img width="18" height="18" src="/design/img/vote-up.png" alt=""></button>
+                        <span class="cursor-pointer">-2</span>
+                        <button class="p-2 hover:bg-[#61111f] rounded-[9999px]"><img src="/design/img/vote-down.png" alt=""></button>
+                    </div>
+                    <button class="py-[6px] px-[8px] text-[#31AEEC] hover:bg-[#0c2836] rounded-[8px]">Ответить</button>
+                </div>
+        </div>
+
+         <!--comments 5-->
+        <div class="flex flex-col w-full max-w-[540px] gap-2 bg-[#131313] border-t border-r border-l border-[#1D1D1D] text-white p-[16px] rounded-[12px]">
+            <div class="flex justify-between gap-2 ">
+             <div class="flex gap-2">
+                <a href="#"><img class="w-[42px] h-[42px] rounded-[8px] object-cover" src="/design/img/avatar5.jpg" alt=""></a>
+                <div class="flex flex-col justify-center gap-1">
+                    <div class="flex items-center gap-1"><div class="font-semibold text-[16px]"><a href="#">HolyKnight</a></div><img class="w-[18px]" src="/design/img/badge.png" alt=""></div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex text-[12px] text-[#e1e1e1] mt-[-4px]">Сегодня в 14:52</div>
+                        </div>
+                </div>
+             </div>
+                <div class="flex items-start justify-end">
+                    <button type="button" data-bottom-sheet-open data-bottom-sheet-target="profile-actions"><img class="p-2 hover:bg-[#1D1D1D] rounded-[8px]" src="/design/img/more-gray.png" alt=""></button>
+                </div>
+            </div>
+            <div class="flex flex-col gap-2">
+                <!--reply message-->
+                <a href="#post-id" class="flex items-start gap-2 w-full rounded-[8px] text-[#e1e1e1] px-2 py-2 bg-[#1d1d1d] border border-dashed hover:border-[#444] border-[#333] "><img class="mt-[3px] w-[16px] sm:mt-[3px]" src="/design/img/reply.png" alt=""><span><b>December</b>, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </span></a>
+                <!--reply message end-->
+                    <p class="text-[#e1e1e1] text-[16px]">Вопрос не полный, ты спрашиваешь кто остался живой с тех времен? )))</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center pb-0 gap-2">
+                        <button class="p-2 hover:bg-[#0d1f12] rounded-[9999px]"><img width="18" height="18" src="/design/img/vote-up.png" alt=""></button>
+                        <span class="cursor-pointer">0</span>
+                        <button class="p-2 hover:bg-[#61111f] rounded-[9999px]"><img src="/design/img/vote-down.png" alt=""></button>
+                    </div>
+                    <button class="py-[6px] px-[8px] text-[#31AEEC] hover:bg-[#0c2836] rounded-[8px]">Ответить</button>
+                </div>
+        </div>
+         <a href="#" class="flex items-center justify-center py-[10px] px-[14px] bg-[#131313] border border-[#1D1D1D] text-[#e1e1e1] font-bold text-[14px] gap-1 w-full rounded-[12px]"><img src="/design/img/more-gray.png" alt=""><p>Загрузить еще</p></a>
+        
+    </div>
+
+    <div id="profile-bottom-sheet" data-bottom-sheet="profile-actions" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+        <div class="absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300" data-bottom-sheet-overlay></div>
+        <div class="absolute bottom-0 left-0 right-0 bg-[#131313] border-t border-[#1D1D1D] rounded-t-[16px] px-4 pt-4 pb-6 translate-y-full transition-transform duration-300" data-bottom-sheet-panel role="menu">
+            <div class="mx-auto mb-4 h-[4px] w-12 rounded-full bg-[#2E2E2E]"></div>
+            <div class="flex flex-col items-center gap-2 text-[#F5F5F5] text-[16px]">
+                <button type="button" class="flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-2 text-left hover:bg-[#252525]" data-bottom-sheet-dismiss data-bottom-sheet-action="edit"><div class="bg-[#0B0B0B] p-[6px] rounded-[8px] border border-[#1D1D1D]"><img src="/design/img/sheet-update-profile.png" alt=""></div>Редактировать профиль</button>
+                <button type="button" class="flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-2 text-left hover:bg-[#252525]" data-bottom-sheet-dismiss data-bottom-sheet-action="notify"><div class="bg-[#0B0B0B] p-[6px] rounded-[8px] border border-[#1D1D1D]"><img src="/design/img/sheet-upload-cover.png" alt=""></div>Редактировать обложку</button>
+                <button type="button" class="flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-2 text-left hover:bg-[#252525]" data-bottom-sheet-dismiss data-bottom-sheet-action="share"><div class="bg-[#0B0B0B] p-[6px] rounded-[8px] border border-[#1D1D1D]"><img src="/design/img/sheet-delete-cover.png" alt=""></div>Удалить обложку</button>
+                <button type="button" class="mt-4 w-full max-w-[540px] rounded-[10px] border border-[#232323] p-2 text-[#F5F5F5] hover:bg-[#1C1C1C]" data-bottom-sheet-dismiss>Закрыть</button>
+            </div>
+            </div>
+    </div>
+
+    <div id="navbar-bottom-sheet" data-bottom-sheet="navbar-actions" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+        <div class="absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300" data-bottom-sheet-overlay></div>
+        <div class="absolute bottom-0 left-0 right-0 bg-[#131313] border-t border-[#1D1D1D] rounded-t-[16px] px-4 pt-4 pb-6 translate-y-full transition-transform duration-300" data-bottom-sheet-panel role="menu">
+            <div class="mx-auto mb-4 h-[4px] w-12 rounded-full bg-[#2E2E2E]"></div>
+            <div class="flex flex-col items-center gap-2 text-[#F5F5F5] text-[16px]">
+                <button type="button" class="flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-2 px-4 text-left hover:bg-[#252525]" data-bottom-sheet-dismiss data-bottom-sheet-action="edit">Обновить страницу</button>
+                <button type="button" class="flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-2 px-4 text-left hover:bg-[#252525]" data-bottom-sheet-dismiss data-bottom-sheet-action="notify">Написать в поддержку</button>
+                <button type="button" class="flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-2 px-4 text-left hover:bg-[#252525]" data-bottom-sheet-dismiss data-bottom-sheet-action="share">Поддержать проект</button>
+                <button type="button" class="mt-4 w-full max-w-[540px] rounded-[10px] border border-[#232323] p-2 text-[#F5F5F5] hover:bg-[#1C1C1C]" data-bottom-sheet-dismiss>Закрыть</button>
+            </div>
+            </div>
+    </div>
+    <script>
+  // Автоматическое изменение высоты для всех textarea с [data-autosize]
+  const fit = (el) => {
+    el.style.height = 'auto';                 // сброс
+    el.style.height = el.scrollHeight + 'px'; // подгон по контенту
+  };
+
+  // Инициализация на старте
+  document.querySelectorAll('[data-autosize]').forEach(fit);
+
+  // Обработка ввода (ввод, удаление, вставка)
+  document.addEventListener('input', (e) => {
+    if (e.target.matches('[data-autosize]')) fit(e.target);
+  });
+
+  // Bottom sheet menu interactions
+  (function () {
+    const sheets = Array.from(document.querySelectorAll('[data-bottom-sheet]'));
+    if (!sheets.length) return;
+    const openButtons = Array.from(document.querySelectorAll('[data-bottom-sheet-open]'));
+    if (!openButtons.length) return;
+
+    const sheetMap = new Map();
+    let activeSheet = null;
+
+    function ensureClosed(state) {
+      state.panel.classList.add('translate-y-full');
+      state.overlay.classList.add('opacity-0');
+      state.sheet.classList.add('hidden');
+    }
+
+    function closeSheet(state) {
+      if (!state || state.sheet.classList.contains('hidden')) return;
+      state.overlay.classList.add('opacity-0');
+      state.panel.classList.add('translate-y-full');
+
+      const onTransitionEnd = (event) => {
+        if (event.target !== state.panel) return;
+        if (!state.panel.classList.contains('translate-y-full')) return;
+        state.sheet.classList.add('hidden');
+        if (activeSheet === state) {
+          activeSheet = null;
+          document.removeEventListener('keydown', handleEscape);
+        }
+      };
+
+      state.panel.addEventListener('transitionend', onTransitionEnd, { once: true });
+    }
+
+    function handleEscape(event) {
+      if (event.key !== 'Escape' || !activeSheet) return;
+      closeSheet(activeSheet);
+    }
+
+    function openSheet(state) {
+      if (!state) return;
+
+      if (activeSheet && activeSheet !== state) {
+        closeSheet(activeSheet);
+      }
+
+      activeSheet = state;
+      state.sheet.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        state.overlay.classList.remove('opacity-0');
+        state.panel.classList.remove('translate-y-full');
+      });
+
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    sheets.forEach((sheet, index) => {
+      const panel = sheet.querySelector('[data-bottom-sheet-panel]');
+      const overlay = sheet.querySelector('[data-bottom-sheet-overlay]');
+      if (!panel || !overlay) return;
+
+      const dismissButtons = Array.from(sheet.querySelectorAll('[data-bottom-sheet-dismiss]'));
+      const identifiers = [
+        sheet.dataset.bottomSheet,
+        sheet.id,
+        `bottom-sheet-${index + 1}`
+      ].filter(Boolean);
+
+      if (!identifiers.length) return;
+
+      const state = { id: identifiers[0], sheet, panel, overlay, dismissButtons };
+      identifiers.forEach((value) => sheetMap.set(value, state));
+
+      ensureClosed(state);
+
+      overlay.addEventListener('click', () => closeSheet(state));
+      sheet.addEventListener('click', (event) => {
+        if (event.target === sheet) {
+          closeSheet(state);
+        }
+      });
+
+      dismissButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          closeSheet(state);
+        });
+      });
+    });
+
+    if (!sheetMap.size) return;
+    const defaultSheet = sheetMap.values().next().value;
+
+    openButtons.forEach((button) => {
+      const targetId = button.dataset.bottomSheetTarget || button.getAttribute('data-bottom-sheet-open');
+      const state = targetId ? sheetMap.get(targetId) : defaultSheet;
+      if (!state) return;
+
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        openSheet(state);
+      });
+    });
+  })();
+
+</script>
+</body>
+</html>
