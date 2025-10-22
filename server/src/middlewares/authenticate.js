@@ -1,4 +1,4 @@
-import { verifyToken } from "../modules/auth/auth.service.js";
+﻿import { verifyToken } from "../modules/auth/auth.service.js";
 import { createHttpError } from "../utils/http-error.js";
 import { findUserById } from "../modules/users/user.repository.js";
 import { DEFAULT_USER_ROLE } from "../constants/roles.js";
@@ -20,13 +20,13 @@ async function resolveRequestUser(token) {
 export async function authenticate(request, _response, next) {
   const authHeader = request.headers.authorization ?? "";
   if (!authHeader.startsWith("Bearer ")) {
-    next(createHttpError(401, "���?��+�?��'�?�? ���?�'�?�?������Ő�?."));
+    next(createHttpError(401, "Authorization header is missing or malformed."));
     return;
   }
 
   const token = authHeader.slice("Bearer".length).trim();
   if (!token) {
-    next(createHttpError(401, "���?��+�?��'�?�? ���?�'�?�?������Ő�?."));
+    next(createHttpError(401, "Authorization header is missing or malformed."));
     return;
   }
 

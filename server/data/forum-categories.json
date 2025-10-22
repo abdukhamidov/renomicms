@@ -1,0 +1,35 @@
+{
+  "cat-nomicms": {
+    "id": "cat-nomicms",
+    "slug": "nomicms",
+    "title": "NomiCMS",
+    "description": "Обсуждение NomiCMS и связанных проектов",
+    "icon": "/design/img/logo-red.png",
+    "order": 1,
+    "isLocked": false,
+    "sectionIds": [
+      "sec-nomicms-news",
+      "sec-nomicms-help",
+      "sec-nomicms-releases"
+    ],
+    "createdAt": "2025-10-22T09:33:22.495Z",
+    "updatedAt": "2025-10-22T09:33:22.495Z"
+  },
+  "cat-community": {
+    "id": "cat-community",
+    "slug": "community",
+    "title": "Сообщество",
+    "description": "Место для свободного общения и знакомств",
+    "icon": "/design/img/forum.png",
+    "order": 2,
+    "isLocked": false,
+    "sectionIds": [
+      "sec-community-general",
+      "sec-community-showcase",
+      "sec-community-support",
+      "sec-community-offtopic"
+    ],
+    "createdAt": "2025-10-22T09:33:22.495Z",
+    "updatedAt": "2025-10-22T09:33:22.495Z"
+  }
+}

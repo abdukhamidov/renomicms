@@ -60,10 +60,10 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/forum" element={<ForumPage />} />
-      <Route path="/forum/section" element={<ForumSectionPage />} />
-      <Route path="/forum/topic" element={<ForumTopicPage />} />
-      <Route path="/forum/create" element={<ForumCreateTopicPage />} />
-      <Route path="/forum/edit" element={<ForumEditTopicPage />} />
+      <Route path="/forum/sections/:sectionId" element={<ForumSectionPage />} />
+      <Route path="/forum/topics/:topicId" element={<ForumTopicPage />} />
+      <Route path="/forum/sections/:sectionId/create" element={<ForumCreateTopicPage />} />
+      <Route path="/forum/topics/:topicId/edit" element={<ForumEditTopicPage />} />
       <Route path="/news" element={<NewsPage />} />
       <Route path="/mail" element={<MailPage />} />
       <Route path="/mail/chat" element={<MailChatPage />} />

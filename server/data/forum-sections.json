@@ -1,0 +1,86 @@
+{
+  "sec-nomicms-news": {
+    "id": "sec-nomicms-news",
+    "categoryId": "cat-nomicms",
+    "slug": "nomicms-news",
+    "title": "Новости и обновления",
+    "description": "Официальные объявления о релизах и развитии NomiCMS",
+    "order": 1,
+    "icon": "/design/img/folder.png",
+    "isLocked": false,
+    "createdAt": "2025-10-22T09:33:22.495Z",
+    "updatedAt": "2025-10-22T13:25:21.239Z"
+  },
+  "sec-nomicms-help": {
+    "id": "sec-nomicms-help",
+    "categoryId": "cat-nomicms",
+    "slug": "nomicms-help",
+    "title": "Помощь и вопросы",
+    "description": "Вопросы по установке, настройке и использованию системы",
+    "order": 2,
+    "icon": "/design/img/folder.png",
+    "isLocked": false,
+    "createdAt": "2025-10-22T09:33:22.495Z",
+    "updatedAt": "2025-10-22T09:33:22.495Z"
+  },
+  "sec-nomicms-releases": {
+    "id": "sec-nomicms-releases",
+    "categoryId": "cat-nomicms",
+    "slug": "nomicms-releases",
+    "title": "Релизы и патчи",
+    "description": "Обсуждение выпусков, патчей и исправлений",
+    "order": 3,
+    "icon": "/design/img/folder.png",
+    "isLocked": false,
+    "createdAt": "2025-10-22T09:33:22.495Z",
+    "updatedAt": "2025-10-22T09:33:22.495Z"
+  },
+  "sec-community-general": {
+    "id": "sec-community-general",
+    "categoryId": "cat-community",
+    "slug": "community-general",
+    "title": "Общий раздел",
+    "description": "Главная площадка для общих обсуждений и идей",
+    "order": 1,
+    "icon": "/design/img/folder.png",
+    "isLocked": false,
+    "createdAt": "2025-10-22T09:33:22.495Z",
+    "updatedAt": "2025-10-22T09:33:22.495Z"
+  },
+  "sec-community-showcase": {
+    "id": "sec-community-showcase",
+    "categoryId": "cat-community",
+    "slug": "community-showcase",
+    "title": "Проекты участников",
+    "description": "Показывайте свои работы и делитесь опытом",
+    "order": 2,
+    "icon": "/design/img/folder.png",
+    "isLocked": false,
+    "createdAt": "2025-10-22T09:33:22.495Z",
+    "updatedAt": "2025-10-22T09:33:22.495Z"
+  },
+  "sec-community-support": {
+    "id": "sec-community-support",
+    "categoryId": "cat-community",
+    "slug": "community-support",
+    "title": "Поддержка сообщества",
+    "description": "Вопросы модерации, правила и жалобы",
+    "order": 3,
+    "icon": "/design/img/folder.png",
+    "isLocked": false,
+    "createdAt": "2025-10-22T09:33:22.495Z",
+    "updatedAt": "2025-10-22T09:33:22.495Z"
+  },
+  "sec-community-offtopic": {
+    "id": "sec-community-offtopic",
+    "categoryId": "cat-community",
+    "slug": "community-offtopic",
+    "title": "Флуд и оффтоп",
+    "description": "Общение на свободные темы вне NomiCMS",
+    "order": 4,
+    "icon": "/design/img/folder.png",
+    "isLocked": false,
+    "createdAt": "2025-10-22T09:33:22.495Z",
+    "updatedAt": "2025-10-22T09:33:22.495Z"
+  }
+}

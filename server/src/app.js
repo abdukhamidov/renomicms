@@ -12,6 +12,7 @@ import { messagesRouter } from "./modules/messages/messages.router.js";
 import { adminRouter } from "./modules/admin/admin.router.js";
 import { siteAccessRouter } from "./modules/site-access/site-access.router.js";
 import { appearanceRouter } from "./modules/appearance/appearance.router.js";
+import { forumRouter } from "./modules/forum/forum.router.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,6 +27,12 @@ export function createApp() {
   app.use(express.json({ limit: "10mb" }));
   app.use(express.urlencoded({ extended: true, limit: "10mb" }));
   app.use("/uploads", express.static(uploadsDir));
+  app.use((_, res, next) => {
+    if (!res.getHeader("Content-Type")) {
+      res.setHeader("Content-Type", "application/json; charset=utf-8");
+    }
+    next();
+  });
 
   app.use("/health", healthRouter);
   app.use("/site-access", siteAccessRouter);
@@ -34,6 +41,7 @@ export function createApp() {
   app.use("/profile", profileRouter);
   app.use("/users", usersRouter);
   app.use("/messages", messagesRouter);
+  app.use("/forum", forumRouter);
   app.use("/admin", adminRouter);
 
   app.get("/", (_req, res) => {

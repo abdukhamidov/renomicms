@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "nodemon --watch src --ext js,json --exec node src/index.js",
     "start": "node src/index.js",

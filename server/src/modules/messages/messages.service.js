@@ -60,16 +60,16 @@ export async function listConversations(userId, options) {
 export async function ensureDirectConversation(userId, targetUsername) {
   const target = await findUserByUsername(targetUsername.toLowerCase());
   if (!target) {
-    throw createHttpError(404, "пїЅ?пїЅ?пїЅ>пїЅ?пїЅпїЅпїЅ?пїЅ?пїЅпїЅпїЅ'пїЅпїЅ>пїЅ? пїЅ?пїЅпїЅ пїЅ?пїЅпїЅпїЅпїЅпїЅ?пїЅпїЅ?.");
+    throw createHttpError(404, "User not found.");
   }
   if (target.id === userId) {
-    throw createHttpError(400, "РќРµР»СЊР·СЏ СЃРѕР·РґР°С‚СЊ РґРёР°Р»РѕРі СЃ СЃР°РјРёРј СЃРѕР±РѕР№.");
+    throw createHttpError(400, "You cannot start a conversation with yourself.");
   }
 
   const conversationId = await getOrCreateDirectConversation(userId, target.id);
   const conversation = await getConversationForUser(conversationId, userId);
   if (!conversation) {
-    throw createHttpError(500, "РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РґРёР°Р»РѕРі.");
+    throw createHttpError(500, "Failed to load conversation.");
   }
   const summaries = await getUserConversations(userId, { limit: 50 });
   const enriched = summaries.find((item) => item.id === conversation.id);
@@ -79,7 +79,7 @@ export async function ensureDirectConversation(userId, targetUsername) {
 export async function fetchConversation(userId, conversationId, options = {}) {
   const conversation = await getConversationForUser(conversationId, userId);
   if (!conversation) {
-    throw createHttpError(404, "Р”РёР°Р»РѕРі РЅРµ РЅР°Р№РґРµРЅ.");
+    throw createHttpError(404, "Conversation not found.");
   }
 
   const messages = await getMessagesForConversation(conversationId, userId, options);
@@ -92,12 +92,12 @@ export async function fetchConversation(userId, conversationId, options = {}) {
 export async function sendMessageToConversation(userId, conversationId, payload) {
   const conversation = await getConversationForUser(conversationId, userId);
   if (!conversation) {
-    throw createHttpError(404, "Р”РёР°Р»РѕРі РЅРµ РЅР°Р№РґРµРЅ.");
+    throw createHttpError(404, "Conversation not found.");
   }
 
   const sender = await findUserById(userId);
   if (!sender) {
-    throw createHttpError(404, "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ.");
+    throw createHttpError(404, "User not found.");
   }
 
   const content = typeof payload.content === "string" ? payload.content.trim() : "";
@@ -107,7 +107,7 @@ export async function sendMessageToConversation(userId, conversationId, payload)
       : null;
 
   if (!content && !attachmentUrl) {
-    throw createHttpError(400, "РЎРѕРѕР±С‰РµРЅРёРµ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј.");
+    throw createHttpError(400, "Message cannot be empty.");
   }
 
   const message = await createMessage(conversationId, userId, { content, attachmentUrl });
@@ -167,17 +167,17 @@ export async function uploadMessageAttachment(userId, payload) {
     throw createHttpError(401, "Authorization required.");
   }
   if (!payload || typeof payload !== "object") {
-    throw createHttpError(400, "Некорректные данные вложения.");
+    throw createHttpError(400, "Attachment payload is invalid.");
   }
 
   const filename = typeof payload.filename === "string" ? payload.filename.trim() : "";
   if (!filename) {
-    throw createHttpError(400, "Имя файла вложения не задано.");
+    throw createHttpError(400, "Attachment filename is missing.");
   }
 
   let content = typeof payload.content === "string" ? payload.content.trim() : "";
   if (!content) {
-    throw createHttpError(400, "Содержимое вложения не задано.");
+    throw createHttpError(400, "Attachment content is missing.");
   }
 
   let mimeType = typeof payload.contentType === "string" ? payload.contentType.trim() : "";
@@ -193,15 +193,15 @@ export async function uploadMessageAttachment(userId, payload) {
   try {
     buffer = Buffer.from(content, "base64");
   } catch (error) {
-    throw createHttpError(400, "Не удалось декодировать вложение.");
+    throw createHttpError(400, "Failed to decode attachment data.");
   }
 
   if (!buffer || buffer.length === 0) {
-    throw createHttpError(400, "Вложение пустое.");
+    throw createHttpError(400, "Attachment is empty.");
   }
 
   if (buffer.length > MAX_ATTACHMENT_SIZE_BYTES) {
-    throw createHttpError(413, "Размер вложения превышает 5 МБ.");
+    throw createHttpError(413, "Attachment size exceeds 5 MB.");
   }
 
   const extension = normalizeAttachmentExtension(filename, mimeType);
@@ -212,7 +212,7 @@ export async function uploadMessageAttachment(userId, payload) {
 export async function markConversationAsRead(userId, conversationId) {
   const conversation = await getConversationForUser(conversationId, userId);
   if (!conversation) {
-    throw createHttpError(404, "Р”РёР°Р»РѕРі РЅРµ РЅР°Р№РґРµРЅ.");
+    throw createHttpError(404, "Conversation not found.");
   }
 
   const timestamp = new Date().toISOString();
