@@ -700,13 +700,13 @@ export function ForumTopicPage() {
     if (!isVariantDesktop && isDesktop) {
       return null;
     }
-    const buttonClass = isVariantDesktop ? "p-1 pb-0 text-[20px]" : "p-2 text-[22px]";
+    const buttonClass = isVariantDesktop ? "text-[20px]" : "p-2 text-[22px]";
     const menuPositionClass = "bottom-[calc(100%+8px)] left-0";
     return (
       <div className="relative" data-emoji-picker>
         <button
           type="button"
-          className={`${buttonClass} rounded-[8px] hover:bg-[#1D1D1D]`}
+          className={`${buttonClass} rounded-[8px] hover:bg-[#1D1D1D] flex items-center justify-center p-[4px]`}
           onMouseDown={(event) => event.preventDefault()}
           onClick={() => {
             if (!editor.isEditable || postSubmitting) {
@@ -718,7 +718,7 @@ export function ForumTopicPage() {
           disabled={!editor.isEditable || postSubmitting}
         >
           <span aria-hidden="true" role="img">
-            😀
+            <img src="/design/img/smile.png" alt="Вставить эмодзи" />
           </span>
         </button>
         {isEmojiMenuOpen ? (
@@ -1172,8 +1172,10 @@ export function ForumTopicPage() {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <button type="button" className="p-1 pl-0 pb-0">
-                      <img src="/design/img/image.png" alt="Прикрепить изображение" />
+                    <button type="button" className="rounded-[8px] hover:bg-[#1D1D1D] flex items-center justify-center p-[4px]">
+                      <span aria-hidden="true" role="img">
+                        <img src="/design/img/attachment.png" alt="Прикрепить изображение" />
+                      </span>
                     </button>
                     {renderEmojiPicker("desktop")}
                   </div>
