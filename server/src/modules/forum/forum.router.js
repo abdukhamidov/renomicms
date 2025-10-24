@@ -13,6 +13,7 @@ import {
   deletePostHandler,
   deleteTopicHandler,
   incrementTopicViewHandler,
+  uploadAttachmentHandler,
 } from "./forum.controller.js";
 
 export const forumRouter = Router();
@@ -36,6 +37,14 @@ forumRouter.get("/sections/:sectionId", optionalAuthenticate, async (request, re
 forumRouter.get("/topics/:topicId", optionalAuthenticate, async (request, response, next) => {
   try {
     await getTopicHandler(request, response);
+  } catch (error) {
+    next(error);
+  }
+});
+
+forumRouter.post("/attachments", authenticate, async (request, response, next) => {
+  try {
+    await uploadAttachmentHandler(request, response);
   } catch (error) {
     next(error);
   }

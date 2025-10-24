@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { promises as fs } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -5,6 +6,8 @@ import { fileURLToPath } from "url";
 const projectRoot = path.dirname(fileURLToPath(new URL("../../..", import.meta.url)));
 const serverRoot = path.join(projectRoot, "server");
 const dataDir = path.join(serverRoot, "data");
+const uploadsDir = path.join(serverRoot, "uploads");
+const forumUploadsDir = path.join(uploadsDir, "forum");
 
 const categoriesFilePath = path.join(dataDir, "forum-categories.json");
 const sectionsFilePath = path.join(dataDir, "forum-sections.json");
@@ -170,6 +173,10 @@ async function writeJson(filePath, value) {
   await fs.writeFile(filePath, JSON.stringify(value, null, 2), "utf8");
 }
 
+async function ensureForumUploadsDir() {
+  await fs.mkdir(forumUploadsDir, { recursive: true });
+}
+
 export async function readForumCategories() {
   return readJson(categoriesFilePath, {});
 }
@@ -220,4 +227,26 @@ export async function writeForumData({ categories, sections, topics, posts }) {
     writeForumTopics(topics),
     writeForumPosts(posts),
   ]);
+}
+
+export async function saveForumAttachmentFile({ extension = "", buffer }) {
+  if (!buffer || !(buffer instanceof Buffer) || buffer.length === 0) {
+    throw new Error("Attachment buffer is empty");
+  }
+  await ensureForumUploadsDir();
+
+  const normalizedExtension = typeof extension === "string" ? extension.toLowerCase() : "";
+  const cleaned = normalizedExtension.replace(/[^a-z0-9.]/g, "");
+  let finalExtension = ".bin";
+  if (cleaned) {
+    const trimmed = cleaned.startsWith(".") ? cleaned.slice(1) : cleaned;
+    if (trimmed) {
+      finalExtension = `.${trimmed.slice(0, 16)}`;
+    }
+  }
+
+  const fileName = `${randomUUID()}${finalExtension}`;
+  const filePath = path.join(forumUploadsDir, fileName);
+  await fs.writeFile(filePath, buffer);
+  return `/uploads/forum/${fileName}`;
 }

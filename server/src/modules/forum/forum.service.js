@@ -1,13 +1,72 @@
 import { randomUUID } from "crypto";
 import { createHttpError } from "../../utils/http-error.js";
 import { DEFAULT_AVATAR_URL } from "../../constants/media.js";
-import { readForumData, readForumTopics, writeForumData, writeForumTopics } from "./forum.repository.js";
+import { readForumData, readForumTopics, writeForumData, writeForumTopics, saveForumAttachmentFile } from "./forum.repository.js";
 import { findUserById } from "../users/user.repository.js";
 
 const MAX_TOPIC_TITLE_LENGTH = 150;
 const MIN_TOPIC_TITLE_LENGTH = 3;
 const MIN_POST_LENGTH = 1;
 const MAX_POST_LENGTH = 20000;
+const MAX_FORUM_ATTACHMENT_SIZE_BYTES = 50 * 1024 * 1024;
+const MIME_EXTENSION_OVERRIDES = {
+  "image/jpeg": ".jpg",
+  "image/jpg": ".jpg",
+  "image/png": ".png",
+  "image/webp": ".webp",
+  "image/gif": ".gif",
+  "image/avif": ".avif",
+  "image/svg+xml": ".svg",
+  "application/pdf": ".pdf",
+  "text/plain": ".txt",
+};
+const DATA_URL_REGEX = /^data:([^;]+);base64,(.+)$/i;
+
+function extractExtensionFromFilename(filename) {
+  if (typeof filename !== "string" || !filename) {
+    return null;
+  }
+  const base = filename.trim().split(/[\\/]/).pop() ?? "";
+  const dotIndex = base.lastIndexOf(".");
+  if (dotIndex > -1 && dotIndex < base.length - 1) {
+    const ext = base.slice(dotIndex + 1).toLowerCase();
+    if (/^[a-z0-9]{1,16}$/.test(ext)) {
+      return `.${ext === "jpeg" ? "jpg" : ext}`;
+    }
+  }
+  return null;
+}
+
+function resolveAttachmentExtension(filename, mimeType) {
+  const fromName = extractExtensionFromFilename(filename);
+  if (fromName) {
+    return fromName;
+  }
+  if (typeof mimeType === "string" && mimeType) {
+    const normalizedMime = mimeType.toLowerCase();
+    const override = MIME_EXTENSION_OVERRIDES[normalizedMime];
+    if (override) {
+      return override;
+    }
+    const subtypeMatch = normalizedMime.match(/^[a-z0-9.+-]+\/([a-z0-9.+-]+)$/);
+    if (subtypeMatch) {
+      const subtype = subtypeMatch[1].replace(/[^a-z0-9]+/g, "-").slice(0, 16);
+      if (subtype) {
+        return `.${subtype}`;
+      }
+    }
+  }
+  return ".bin";
+}
+
+function sanitizeAttachmentLabel(filename) {
+  if (typeof filename !== "string" || !filename) {
+    return "attachment";
+  }
+  const base = filename.trim().split(/[\\/]/).pop() ?? "attachment";
+  const cleaned = base.replace(/[\r\n]+/g, " ").trim();
+  return cleaned || "attachment";
+}
 
 function slugify(value) {
   if (!value) {
@@ -40,6 +99,58 @@ function sanitizeTitle(title) {
     return "";
   }
   return title.trim();
+}
+
+export async function uploadForumAttachment(actor, payload) {
+  if (!actor?.id) {
+    throw createHttpError(401, "Authorization required.");
+  }
+  if (!payload || typeof payload !== "object") {
+    throw createHttpError(400, "Attachment payload is invalid.");
+  }
+
+  const filename = typeof payload.filename === "string" ? payload.filename.trim() : "";
+  if (!filename) {
+    throw createHttpError(400, "Attachment filename is required.");
+  }
+
+  let content = typeof payload.content === "string" ? payload.content.trim() : "";
+  if (!content) {
+    throw createHttpError(400, "Attachment content is missing.");
+  }
+
+  let contentType = typeof payload.contentType === "string" ? payload.contentType.trim() : "";
+  const dataUrlMatch = content.match(DATA_URL_REGEX);
+  if (dataUrlMatch) {
+    contentType = dataUrlMatch[1];
+    content = dataUrlMatch[2];
+  }
+
+  content = content.replace(/\s/g, "");
+
+  let buffer;
+  try {
+    buffer = Buffer.from(content, "base64");
+  } catch {
+    throw createHttpError(400, "Failed to decode attachment data.");
+  }
+
+  if (!buffer || buffer.length === 0) {
+    throw createHttpError(400, "Attachment is empty.");
+  }
+
+  if (buffer.length > MAX_FORUM_ATTACHMENT_SIZE_BYTES) {
+    throw createHttpError(413, "Attachment size exceeds 50 MB.");
+  }
+
+  const extension = resolveAttachmentExtension(filename, contentType);
+  const attachmentUrl = await saveForumAttachmentFile({ extension, buffer });
+
+  return {
+    attachmentUrl,
+    filename: sanitizeAttachmentLabel(filename),
+    contentType: contentType || null,
+  };
 }
 
 function createPostExcerpt(content, limit = 140) {

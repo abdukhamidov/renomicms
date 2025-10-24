@@ -290,3 +290,27 @@ export function deleteForumTopic(topicId: string, token: string) {
     token,
   });
 }
+
+export type ForumAttachmentUploadResult = {
+  attachmentUrl: string;
+  filename: string;
+  contentType: string | null;
+};
+
+export function uploadForumAttachment(
+  payload: { filename: string; content: string; contentType?: string | null },
+  token: string,
+) {
+  return apiRequest<{ status: "ok"; attachmentUrl: string; filename: string; contentType: string | null }>(
+    "/forum/attachments",
+    {
+      method: "POST",
+      token,
+      body: JSON.stringify(payload),
+    },
+  ).then((response) => ({
+    attachmentUrl: response.attachmentUrl,
+    filename: response.filename ?? payload.filename,
+    contentType: response.contentType ?? null,
+  }));
+}

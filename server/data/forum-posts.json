@@ -7,7 +7,10 @@
     "createdAt": "2025-10-22T09:52:21.760Z",
     "updatedAt": "2025-10-22T09:52:21.760Z",
     "isDeleted": false,
-    "deletedAt": null
+    "deletedAt": null,
+    "votes": {
+      "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c": 1
+    }
   },
   "2fc2766b-5255-49ad-9719-9295155934dc": {
     "id": "2fc2766b-5255-49ad-9719-9295155934dc",
@@ -27,7 +30,10 @@
     "createdAt": "2025-10-22T09:53:01.331Z",
     "updatedAt": "2025-10-22T09:53:01.331Z",
     "isDeleted": false,
-    "deletedAt": null
+    "deletedAt": null,
+    "votes": {
+      "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c": 1
+    }
   },
   "63175d7e-7fb2-4747-ae50-7b357eff1f58": {
     "id": "63175d7e-7fb2-4747-ae50-7b357eff1f58",
@@ -78,5 +84,141 @@
     "votes": {
       "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c": -1
     }
+  },
+  "afeffddc-9b56-45a1-a260-1d4dd261b915": {
+    "id": "afeffddc-9b56-45a1-a260-1d4dd261b915",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "Shu, fqwfqwfqwd",
+    "replyToPostId": "13a884bd-ac30-4ebe-9374-e65f4bfc278a",
+    "createdAt": "2025-10-23T08:47:48.637Z",
+    "updatedAt": "2025-10-23T08:47:48.637Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {
+      "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c": 1
+    }
+  },
+  "6c7ec023-87fe-414f-b901-24a5f192a716": {
+    "id": "6c7ec023-87fe-414f-b901-24a5f192a716",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "fqwfqwf",
+    "replyToPostId": null,
+    "createdAt": "2025-10-23T08:48:12.621Z",
+    "updatedAt": "2025-10-23T08:48:12.621Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {}
+  },
+  "b76c44e0-08e3-46be-8cbd-e97cb1e82042": {
+    "id": "b76c44e0-08e3-46be-8cbd-e97cb1e82042",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "сйцфуасйца312а2а",
+    "replyToPostId": null,
+    "createdAt": "2025-10-23T09:29:32.058Z",
+    "updatedAt": "2025-10-23T09:29:32.058Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {}
+  },
+  "fa7ae6e2-13fd-44ea-a3f5-08a019945db2": {
+    "id": "fa7ae6e2-13fd-44ea-a3f5-08a019945db2",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "123123",
+    "replyToPostId": null,
+    "createdAt": "2025-10-23T09:29:36.457Z",
+    "updatedAt": "2025-10-23T09:29:36.457Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {}
+  },
+  "f8228c74-a8d8-4200-aadc-67b462011c46": {
+    "id": "f8228c74-a8d8-4200-aadc-67b462011c46",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "<p>qwf<strong>qwfqwdqwd</strong></p>",
+    "replyToPostId": null,
+    "createdAt": "2025-10-23T10:12:10.990Z",
+    "updatedAt": "2025-10-23T10:12:10.990Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {}
+  },
+  "3a17b722-967b-4c7c-806c-34dba0b98a50": {
+    "id": "3a17b722-967b-4c7c-806c-34dba0b98a50",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "<p>q<s>wfqwfq</s><strong><s>wdqwd</s></strong></p>",
+    "replyToPostId": null,
+    "createdAt": "2025-10-23T10:14:10.173Z",
+    "updatedAt": "2025-10-23T10:14:10.173Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {}
+  },
+  "6654a53e-0157-4edf-8a28-867ad0a3a30f": {
+    "id": "6654a53e-0157-4edf-8a28-867ad0a3a30f",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "<p>q<s>w</s><code>fqwfqwdqwd</code></p>",
+    "replyToPostId": null,
+    "createdAt": "2025-10-23T10:14:16.209Z",
+    "updatedAt": "2025-10-23T10:14:16.209Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {}
+  },
+  "8a612be1-4f62-4c96-a06f-10412fed0ffd": {
+    "id": "8a612be1-4f62-4c96-a06f-10412fed0ffd",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "<p>qwfqwfqwf</p>",
+    "replyToPostId": null,
+    "createdAt": "2025-10-23T11:59:06.996Z",
+    "updatedAt": "2025-10-23T11:59:06.996Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {
+      "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c": 1
+    }
+  },
+  "b2033990-6001-43c7-a076-35874e91795d": {
+    "id": "b2033990-6001-43c7-a076-35874e91795d",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "sdfcwsdfwef",
+    "replyToPostId": "afeffddc-9b56-45a1-a260-1d4dd261b915",
+    "createdAt": "2025-10-23T13:26:32.092Z",
+    "updatedAt": "2025-10-23T13:26:32.092Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {}
+  },
+  "016c44a0-3e46-4c4f-a6b3-e80637ab774f": {
+    "id": "016c44a0-3e46-4c4f-a6b3-e80637ab774f",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "Shu, wegfwegweg",
+    "replyToPostId": "6c7ec023-87fe-414f-b901-24a5f192a716",
+    "createdAt": "2025-10-23T13:26:45.518Z",
+    "updatedAt": "2025-10-23T13:26:45.518Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {}
+  },
+  "b46f8afc-578e-44c1-994b-55d69815ceba": {
+    "id": "b46f8afc-578e-44c1-994b-55d69815ceba",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "<p>dfq<strong>wfqwf</strong></p>",
+    "replyToPostId": null,
+    "createdAt": "2025-10-24T05:39:52.812Z",
+    "updatedAt": "2025-10-24T05:39:52.812Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {}
   }
 }

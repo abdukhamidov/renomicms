@@ -11,6 +11,7 @@ import {
   deleteForumPost,
   deleteForumTopic,
   incrementTopicView,
+  uploadForumAttachment,
 } from "./forum.service.js";
 
 export async function listCategoriesHandler(request, response) {
@@ -157,6 +158,14 @@ export async function deleteTopicHandler(request, response) {
   const result = await deleteForumTopic(topicId, request.user ?? null);
 
   response.json({
+    status: "ok",
+    ...result,
+  });
+}
+
+export async function uploadAttachmentHandler(request, response) {
+  const result = await uploadForumAttachment(request.user ?? null, request.body ?? {});
+  response.status(201).json({
     status: "ok",
     ...result,
   });
