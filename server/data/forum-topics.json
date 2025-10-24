@@ -7,10 +7,10 @@
     "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
     "isLocked": false,
     "isPinned": true,
-    "viewCount": 109,
+    "viewCount": 121,
     "createdAt": "2025-10-22T09:52:21.760Z",
-    "updatedAt": "2025-10-24T05:39:52.812Z",
-    "lastPostAt": "2025-10-24T05:39:52.812Z",
+    "updatedAt": "2025-10-24T08:30:58.991Z",
+    "lastPostAt": "2025-10-24T08:30:58.991Z",
     "lastPostUserId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
     "postIds": [
       "13a884bd-ac30-4ebe-9374-e65f4bfc278a",
@@ -26,7 +26,9 @@
       "8a612be1-4f62-4c96-a06f-10412fed0ffd",
       "b2033990-6001-43c7-a076-35874e91795d",
       "016c44a0-3e46-4c4f-a6b3-e80637ab774f",
-      "b46f8afc-578e-44c1-994b-55d69815ceba"
+      "b46f8afc-578e-44c1-994b-55d69815ceba",
+      "d7e21343-eaba-479b-afe5-41a70482cb02",
+      "57f56b46-d00d-445c-aa35-d939278a7a2a"
     ],
     "deletedAt": null
   },

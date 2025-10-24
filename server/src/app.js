@@ -24,8 +24,9 @@ export function createApp() {
 
   app.disable("x-powered-by");
   app.use(cors());
-  app.use(express.json({ limit: "10mb" }));
-  app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+  const bodyLimit = "75mb";
+  app.use(express.json({ limit: bodyLimit }));
+  app.use(express.urlencoded({ extended: true, limit: bodyLimit }));
   app.use("/uploads", express.static(uploadsDir));
   app.use((_, res, next) => {
     if (!res.getHeader("Content-Type")) {

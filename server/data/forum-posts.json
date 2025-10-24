@@ -220,5 +220,29 @@
     "isDeleted": false,
     "deletedAt": null,
     "votes": {}
+  },
+  "d7e21343-eaba-479b-afe5-41a70482cb02": {
+    "id": "d7e21343-eaba-479b-afe5-41a70482cb02",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "<p>Вложение: <a href=\"/uploads/forum/8a7b956a-1ef1-463f-a9e8-0dc390c416e5.jpg\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">336963803_937669723916476_5087827415301132360_n.jpg</a></p>",
+    "replyToPostId": null,
+    "createdAt": "2025-10-24T07:29:35.556Z",
+    "updatedAt": "2025-10-24T07:29:35.556Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {}
+  },
+  "57f56b46-d00d-445c-aa35-d939278a7a2a": {
+    "id": "57f56b46-d00d-445c-aa35-d939278a7a2a",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "<img class=\"max-w-full rounded-[12px]\" src=\"/uploads/forum/9cd85245-161f-4aae-be5f-bc84efb53d74.png\" alt=\"d719dfda-4d63-407d-a4ab-82c3a234afcd.png\">",
+    "replyToPostId": null,
+    "createdAt": "2025-10-24T08:30:58.991Z",
+    "updatedAt": "2025-10-24T08:30:58.991Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {}
   }
 }
