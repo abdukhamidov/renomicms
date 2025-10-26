@@ -236,7 +236,7 @@ function NewsCard({ item }: { item: NewsItem }) {
     <Link
       to={`/news/${encodeURIComponent(item.id)}`}
       state={{ item }}
-      className="flex flex-col gap-2 rounded-[12px] border-t border-r border-l border-[#1D1D1D] bg-[#131313] p-[16px] text-white transition hover:border-[#2F94F9]"
+      className="flex flex-col gap-2 rounded-[12px] border border-[#1D1D1D] hover:border-[#333] bg-[#131313] p-[16px] text-white transition"
     >
       <div className="flex items-center gap-2">
         <div className="rounded-[8px] border border-[#1D1D1D] bg-[#0B0B0B] p-[6px]">

@@ -29,6 +29,8 @@ import { AdminSiteAccessPage } from "@/pages/admin/AdminSiteAccessPage";
 import { AdminUsersPage } from "@/pages/admin/AdminUsersPage";
 import { AdminAppearancePage } from "@/pages/admin/AdminAppearancePage";
 import { AdminNewsPage } from "@/pages/admin/AdminNewsPage";
+import { AdminComplaintsPage } from "@/pages/admin/AdminComplaintsPage";
+import { AdminComplaintsArchivePage } from "@/pages/admin/AdminComplaintsArchivePage";
 import { MaintenancePage } from "@/pages/system/MaintenancePage";
 import { useAuth } from "@/contexts/useAuth";
 import { useSiteAccess } from "@/contexts/SiteAccessContext";
@@ -86,6 +88,8 @@ function App() {
       <Route path="/admin/users" element={<AdminUsersPage />} />
       <Route path="/admin/appearance" element={<AdminAppearancePage />} />
       <Route path="/admin/news" element={<AdminNewsPage />} />
+      <Route path="/admin/complaints" element={<AdminComplaintsPage />} />
+      <Route path="/admin/complaints/archive" element={<AdminComplaintsArchivePage />} />
       <Route path="/admin/access" element={<AdminSiteAccessPage />} />
       <Route path="/auth/login" element={<LoginPage />} />
       <Route path="/auth/register" element={<RegisterPage />} />

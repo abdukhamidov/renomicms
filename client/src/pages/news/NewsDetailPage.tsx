@@ -1,11 +1,15 @@
 ﻿import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import type { MutableRefObject, ReactNode } from "react";
 import { Link, Navigate, useLocation, useParams } from "react-router-dom";
 import DOMPurify from "dompurify";
+import EmojiPicker, { type EmojiClickData, Theme } from "emoji-picker-react";
 import {
   fetchNewsItem,
   fetchNewsComments,
   createNewsComment,
+  updateNewsComment,
+  deleteNewsComment,
+  reportNewsComment,
   type NewsItem,
   type NewsComment,
 } from "@/api/news";
@@ -117,6 +121,119 @@ function writeCachedNewsDetail(item: NewsItem) {
   persistDetailCache();
 }
 
+function insertEmojiIntoTextarea(
+  textareaRef: MutableRefObject<HTMLTextAreaElement | null>,
+  currentValue: string,
+  emoji: string,
+  onChange: (nextValue: string) => void,
+) {
+  const textarea = textareaRef.current;
+  const selectionStart = textarea?.selectionStart ?? currentValue.length;
+  const selectionEnd = textarea?.selectionEnd ?? currentValue.length;
+  const nextValue = `${currentValue.slice(0, selectionStart)}${emoji}${currentValue.slice(selectionEnd)}`;
+  onChange(nextValue);
+  const nextCaretPosition = selectionStart + emoji.length;
+  // Keep the caret after the inserted emoji once React updates the textarea value.
+  const applyCaret = () => {
+    const target = textareaRef.current;
+    if (!target) {
+      return;
+    }
+    target.focus();
+    target.setSelectionRange(nextCaretPosition, nextCaretPosition);
+  };
+  if (typeof window !== "undefined" && typeof window.requestAnimationFrame === "function") {
+    window.requestAnimationFrame(applyCaret);
+  } else {
+    applyCaret();
+  }
+}
+
+type EmojiPickerTriggerProps = {
+  variant: "desktop" | "mobile";
+  disabled: boolean;
+  onEmojiSelect: (emoji: string) => void;
+};
+
+function EmojiPickerTrigger({ variant, disabled, onEmojiSelect }: EmojiPickerTriggerProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const isDesktopVariant = variant === "desktop";
+  const buttonPadding = isDesktopVariant ? "p-[4px]" : "p-2";
+  const menuPositionClass = "bottom-[calc(100%+8px)] left-0";
+  const pickerWidth = isDesktopVariant ? 320 : 300;
+  const pickerHeight = isDesktopVariant ? 380 : 360;
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+    const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.closest("[data-emoji-picker]")) {
+        return;
+      }
+      setIsOpen(false);
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener("touchstart", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("touchstart", handleOutsideClick);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (disabled) {
+      setIsOpen(false);
+    }
+  }, [disabled]);
+
+  return (
+    <div className="relative" data-emoji-picker>
+      <button
+        type="button"
+        className={`rounded-[8px] hover:bg-[#1D1D1D] flex items-center justify-center ${buttonPadding}`}
+        onMouseDown={(event) => event.preventDefault()}
+        onClick={() => {
+          if (disabled) {
+            return;
+          }
+          setIsOpen((open) => !open);
+        }}
+        aria-label="Вставить эмодзи"
+        disabled={disabled}
+      >
+        <span aria-hidden="true" role="img">
+          <img src="/design/img/smile.png" alt="Вставить эмодзи" />
+        </span>
+      </button>
+      {isOpen ? (
+        <div
+          className={`absolute ${menuPositionClass} z-20 rounded-[12px] border border-[#1D1D1D] bg-[#0B0B0B] shadow-lg overflow-hidden`}
+        >
+          <EmojiPicker
+            onEmojiClick={(emojiData: EmojiClickData) => {
+              if (disabled) {
+                return;
+              }
+              onEmojiSelect(emojiData.emoji);
+              setIsOpen(false);
+            }}
+            theme={Theme.DARK}
+            lazyLoadEmojis
+            searchDisabled
+            skinTonesDisabled
+            previewConfig={{ showPreview: false }}
+            autoFocusSearch={false}
+            width={pickerWidth}
+            height={pickerHeight}
+          />
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 const STR = {
   defaultAuthor: "\u041a\u043e\u043c\u0430\u043d\u0434\u0430 NomiCMS",
   title: "\u041d\u043e\u0432\u043e\u0441\u0442\u0438",
@@ -160,6 +277,16 @@ const STR = {
   commentActionEdit: "\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c",
   commentActionDelete: "\u0423\u0434\u0430\u043b\u0438\u0442\u044c",
   commentActionReport: "\u041f\u043e\u0436\u0430\u043b\u043e\u0432\u0430\u0442\u044c\u0441\u044f",
+  commentSave: "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c",
+  commentEditLabel: "\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u044f",
+  commentEditCancel: "\u041e\u0442\u043c\u0435\u043d\u0430",
+  commentCreateSuccess: "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439 \u043e\u043f\u0443\u0431\u043b\u0438\u043a\u043e\u0432\u0430\u043d.",
+  commentUpdateSuccess: "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439 \u043e\u0431\u043d\u043e\u0432\u043b\u0451\u043d.",
+  commentDeleteSuccess: "\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439 \u0443\u0434\u0430\u043b\u0451\u043d.",
+  commentDeleteConfirm: "\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439?",
+  commentReportPrompt: "\u041e\u043f\u0438\u0448\u0438\u0442\u0435 \u043f\u0440\u0438\u0447\u0438\u043d\u0443 \u0436\u0430\u043b\u043e\u0431\u044b (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e).",
+  commentReportSuccess: "\u0416\u0430\u043b\u043e\u0431\u0430 \u043e\u0442\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0430. \u0421\u043f\u0430\u0441\u0438\u0431\u043e!",
+  commentReportError: "\u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u043e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c \u0436\u0430\u043b\u043e\u0431\u0443. \u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0451 \u0440\u0430\u0437.",
   close: "\u0417\u0430\u043a\u0440\u044b\u0442\u044c",
 };
 
@@ -387,9 +514,13 @@ type CommentsSectionProps = {
   commentValue: string;
   onCommentChange: (value: string) => void;
   onSubmit: () => void;
+  onCancelEdit: () => void;
+  isEditing: boolean;
   submitting: boolean;
   submitError: string | null;
+  successMessage: string | null;
   avatarSrc: string;
+  textareaRef: MutableRefObject<HTMLTextAreaElement | null>;
   onOpenActions: (comment: NewsComment) => void;
 };
 
@@ -402,14 +533,24 @@ function CommentsSection({
   commentValue,
   onCommentChange,
   onSubmit,
+  onCancelEdit,
+  isEditing,
   submitting,
   submitError,
+  successMessage,
   avatarSrc,
+  textareaRef,
   onOpenActions,
 }: CommentsSectionProps) {
   const isLoading = state.status === "loading";
   const isError = state.status === "error";
   const hasComments = state.items.length > 0;
+  const handleEmojiSelect = useCallback(
+    (emoji: string) => {
+      insertEmojiIntoTextarea(textareaRef, commentValue, emoji, onCommentChange);
+    },
+    [commentValue, onCommentChange, textareaRef],
+  );
 
   return (
     <div className="flex w-full max-w-[540px] flex-col gap-4 text-white">
@@ -446,34 +587,63 @@ function CommentsSection({
                 onSubmit();
               }}
             >
+              {isEditing ? (
+                <div className="flex items-center justify-between rounded-[8px] bg-[#1C1C1C] px-3 py-2 text-[12px] text-[#8C8C8C]">
+                  <span>{STR.commentEditLabel}</span>
+                  <button
+                    type="button"
+                    onClick={onCancelEdit}
+                    className="text-[#2F94F9] hover:underline"
+                  >
+                    {STR.commentEditCancel}
+                  </button>
+                </div>
+              ) : null}
               <div className="flex gap-3">
-                <img
-                  src={avatarSrc}
-                  alt=""
-                  className="h-[36px] w-[36px] rounded-full object-cover"
-                />
+                
                 <textarea
+                  ref={textareaRef}
                   value={commentValue}
                   maxLength={COMMENT_MAX_LENGTH}
                   disabled={submitting}
                   onChange={(event) => onCommentChange(event.target.value)}
                   placeholder={STR.commentPlaceholder}
-                  className="flex-1 resize-none rounded-[8px] bg-[#131313]  text-[14px] text-[#dbdbdb] placeholder:text-[#8C8C8C] focus:border-[#2F94F9] focus:outline-none focus:ring-0"
+                  className="flex-1 resize-none rounded-[8px] bg-[#131313] text-[14px] text-[#dbdbdb] placeholder:text-[#8C8C8C] focus:border-[#2F94F9] focus:outline-none focus:ring-0"
                   rows={3}
                 />
               </div>
-              <div className="flex items-center justify-end text-[12px] text-[#8C8C8C]">
-                
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="rounded-[10px] border border-[#2F94F9] bg-[#2F94F9] px-4 py-2 text-[13px] font-semibold text-black transition-colors hover:bg-[#257acc] disabled:cursor-not-allowed disabled:opacity-70"
-                >
-                  {submitting ? STR.commentSubmitting : STR.commentSubmit}
-                </button>
+              <div className="flex items-center justify-between text-[12px] text-[#8C8C8C]">
+                <div className="flex items-center gap-2">
+                  <EmojiPickerTrigger
+                    variant="desktop"
+                    disabled={submitting}
+                    onEmojiSelect={handleEmojiSelect}
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  {isEditing ? (
+                    <button
+                      type="button"
+                      onClick={onCancelEdit}
+                      className="rounded-[10px] border border-[#1D1D1D] px-4 py-2 text-[13px] font-semibold text-[#dbdbdb] transition-colors hover:bg-[#1D1D1D]"
+                    >
+                      {STR.commentEditCancel}
+                    </button>
+                  ) : null}
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="rounded-[10px] border border-[#2F94F9] bg-[#2F94F9] px-4 py-2 text-[13px] font-semibold text-black transition-colors hover:bg-[#257acc] disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    {submitting ? STR.commentSubmitting : isEditing ? STR.commentSave : STR.commentSubmit}
+                  </button>
+                </div>
               </div>
             </form>
             {submitError ? <p className="mt-2 text-[12px] text-[#f5caca]">{submitError}</p> : null}
+            {!submitError && successMessage ? (
+              <p className="mt-2 text-[12px] text-[#7fffa5]">{successMessage}</p>
+            ) : null}
           </>
         ) : (
           <p className="text-[13px] text-[#8C8C8C]">{STR.commentLoginPrompt}</p>
@@ -606,6 +776,11 @@ type MobileCommentComposerProps = {
   onSubmit: () => void;
   submitting: boolean;
   submitError: string | null;
+  successMessage: string | null;
+  isEditing: boolean;
+  onCancelEdit: () => void;
+  textareaRef: MutableRefObject<HTMLTextAreaElement | null>;
+  avatarSrc: string;
 };
 
 function MobileCommentComposer({
@@ -615,34 +790,56 @@ function MobileCommentComposer({
   onSubmit,
   submitting,
   submitError,
+  successMessage,
+  isEditing,
+  onCancelEdit,
+  textareaRef,
+  avatarSrc,
 }: MobileCommentComposerProps) {
+  const handleEmojiSelect = useCallback(
+    (emoji: string) => {
+      insertEmojiIntoTextarea(textareaRef, commentValue, emoji, onCommentChange);
+    },
+    [commentValue, onCommentChange, textareaRef],
+  );
+
   return (
     <div className="fixed bottom-0 left-0 right-0 sm:hidden z-50 bg-[#131313] border-t border-[#1D1D1D] text-white">
       {canComment ? (
         <form
-          className="max-w-[540px] mx-auto w-full px-3 pt-2 pb-2 flex items-end gap-2"
+          className="max-w-[540px] mx-auto w-full px-3 pt-2 pb-9 flex items-end gap-2"
           onSubmit={(event) => {
             event.preventDefault();
             onSubmit();
           }}
         >
-          <button type="button" className="shrink-0 self-end p-2">
-          
-          </button>
+          <div className="shrink-0 self-end">
+            <EmojiPickerTrigger
+              variant="mobile"
+              disabled={submitting}
+              onEmojiSelect={handleEmojiSelect}
+            />
+          </div>
           <div className="flex-1 min-w-0">
+            {isEditing ? (
+              <div className="mb-2 flex items-center justify-between text-[12px] text-[#8C8C8C]">
+                <span>{STR.commentEditLabel}</span>
+                <button type="button" onClick={onCancelEdit} className="text-[#2F94F9] hover:underline">
+                  {STR.commentEditCancel}
+                </button>
+              </div>
+            ) : null}
             <div className="rounded-[10px] border border-[#1D1D1D] bg-[#0B0B0B] px-3 py-2">
               <textarea
+                ref={textareaRef}
                 value={commentValue}
                 maxLength={COMMENT_MAX_LENGTH}
                 disabled={submitting}
                 onChange={(event) => onCommentChange(event.target.value)}
                 placeholder={STR.commentPlaceholder}
-                className="h-[60px] w-full resize-none bg-transparent text-[14px] text-[#dbdbdb] placeholder:text-[#8C8C8C] focus:outline-none"
+                className="h-[16px] w-full resize-none bg-transparent text-[14px] text-[#dbdbdb] placeholder:text-[#8C8C8C] focus:outline-none"
                 rows={3}
               />
-            </div>
-            <div className="mt-2 text-right text-[12px] text-[#8C8C8C]">
-              {commentValue.length}/{COMMENT_MAX_LENGTH}
             </div>
           </div>
           <button
@@ -650,7 +847,11 @@ function MobileCommentComposer({
             disabled={submitting}
             className="shrink-0 self-end rounded-[10px] p-2 text-[#2F94F9] disabled:opacity-70"
           >
-            <img className="h-6 w-6" src="/design/img/send.png" alt={STR.commentSubmit} />
+            <img
+              className="h-6 w-6"
+              src="/design/img/send.png"
+              alt={isEditing ? STR.commentSave : STR.commentSubmit}
+            />
           </button>
         </form>
       ) : (
@@ -659,6 +860,9 @@ function MobileCommentComposer({
         </div>
       )}
       {submitError ? <div className="px-4 pb-2 text-[12px] text-[#f5caca]">{submitError}</div> : null}
+      {!submitError && successMessage ? (
+        <div className="px-4 pb-2 text-[12px] text-[#7fffa5]">{successMessage}</div>
+      ) : null}
     </div>
   );
 }
@@ -672,23 +876,41 @@ export function NewsDetailPage() {
   const [commentsState, setCommentsState] = useState<CommentsState>({ status: "loading", items: [] });
   const [commentValue, setCommentValue] = useState("");
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isNavbarSheetOpen, setNavbarSheetOpen] = useState(false);
   const [isCommentActionsOpen, setCommentActionsOpen] = useState(false);
   const [activeComment, setActiveComment] = useState<NewsComment | null>(null);
+  const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
   const mountedRef = useRef(true);
   const currentNewsIdRef = useRef<string | undefined>(newsId);
+  const desktopComposerRef = useRef<HTMLTextAreaElement | null>(null);
+  const mobileComposerRef = useRef<HTMLTextAreaElement | null>(null);
   const canComment = Boolean(user && token);
   const commenterAvatar =
     user?.avatarUrl && user.avatarUrl.length > 0 ? user.avatarUrl : DEFAULT_AVATAR;
+
+  const focusComposer = useCallback(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    if (window.innerWidth < 640) {
+      mobileComposerRef.current?.focus();
+    } else {
+      desktopComposerRef.current?.focus();
+    }
+  }, [desktopComposerRef, mobileComposerRef]);
 
   useEffect(() => {
     currentNewsIdRef.current = newsId;
     setCommentsState({ status: "loading", items: [] });
     setCommentValue("");
     setSubmitError(null);
+    setSubmitSuccess(null);
+    setEditingCommentId(null);
     setCommentActionsOpen(false);
     setActiveComment(null);
+    setIsSubmitting(false);
   }, [newsId]);
 
   const load = useCallback(async () => {
@@ -826,8 +1048,11 @@ export function NewsDetailPage() {
       if (submitError) {
         setSubmitError(null);
       }
+      if (submitSuccess) {
+        setSubmitSuccess(null);
+      }
     },
-    [submitError],
+    [submitError, submitSuccess],
   );
 
   const handleSubmitComment = useCallback(async () => {
@@ -843,12 +1068,35 @@ export function NewsDetailPage() {
     }
     setIsSubmitting(true);
     setSubmitError(null);
+    setSubmitSuccess(null);
     try {
-      const response = await createNewsComment(targetId, { content }, token);
-      if (!mountedRef.current) {
+      if (editingCommentId) {
+        const response = await updateNewsComment(targetId, editingCommentId, { content }, token);
+        if (!mountedRef.current || currentNewsIdRef.current !== targetId) {
+          return;
+        }
+        setCommentsState((prev) => {
+          const nextItems = prev.items.map((item) =>
+            item.id === response.comment.id ? response.comment : item,
+          );
+          switch (prev.status) {
+            case "loading":
+              return { status: "loading", items: nextItems };
+            case "error":
+              return { status: "error", message: prev.message, items: nextItems };
+            default:
+              return { status: "ready", items: nextItems };
+          }
+        });
+        setCommentValue("");
+        setEditingCommentId(null);
+        setSubmitSuccess(STR.commentUpdateSuccess);
+        focusComposer();
         return;
       }
-      if (currentNewsIdRef.current !== targetId) {
+
+      const response = await createNewsComment(targetId, { content }, token);
+      if (!mountedRef.current || currentNewsIdRef.current !== targetId) {
         return;
       }
       let updatedComments: NewsComment[] = [];
@@ -874,11 +1122,9 @@ export function NewsDetailPage() {
           }),
         );
       }
+      setSubmitSuccess(STR.commentCreateSuccess);
     } catch (error) {
-      if (!mountedRef.current) {
-        return;
-      }
-      if (currentNewsIdRef.current !== targetId) {
+      if (!mountedRef.current || currentNewsIdRef.current !== targetId) {
         return;
       }
       const message = error instanceof Error ? error.message : STR.commentError;
@@ -888,7 +1134,7 @@ export function NewsDetailPage() {
         setIsSubmitting(false);
       }
     }
-  }, [commentValue, newsId, token]);
+  }, [commentValue, editingCommentId, focusComposer, newsId, token]);
 
   const handleOpenCommentActions = useCallback(
     (comment: NewsComment) => {
@@ -912,21 +1158,126 @@ export function NewsDetailPage() {
       return;
     }
 
+    const nextValue = activeComment.content ?? "";
+    setCommentValue(nextValue);
+    setEditingCommentId(activeComment.id);
+    setSubmitError(null);
+    setSubmitSuccess(null);
     handleCloseCommentActions();
-  }, [activeComment, handleCloseCommentActions, user]);
+    setTimeout(() => {
+      focusComposer();
+    }, 0);
+  }, [activeComment, focusComposer, handleCloseCommentActions, setCommentValue, user]);
 
-  const handleDeleteComment = useCallback(() => {
+  const handleCancelEdit = useCallback(() => {
+    setEditingCommentId(null);
+    setCommentValue("");
+    setSubmitError(null);
+    setSubmitSuccess(null);
+  }, []);
+
+  const handleDeleteComment = useCallback(async () => {
     if (!activeComment || !user || (user.role !== "admin" && activeComment.authorId !== user.id)) {
       handleCloseCommentActions();
       return;
     }
 
-    handleCloseCommentActions();
-  }, [activeComment, handleCloseCommentActions, user]);
+    if (!newsId || !token) {
+      setSubmitError(STR.commentLoginPrompt);
+      handleCloseCommentActions();
+      return;
+    }
 
-  const handleReportComment = useCallback(() => {
+    const confirmed = window.confirm(STR.commentDeleteConfirm);
+    if (!confirmed) {
+      return;
+    }
+
+    const targetId = activeComment.id;
     handleCloseCommentActions();
-  }, [handleCloseCommentActions]);
+    setSubmitError(null);
+    setSubmitSuccess(null);
+
+    try {
+      await deleteNewsComment(newsId, targetId, token);
+      let nextItems: NewsComment[] = [];
+      setCommentsState((prev) => {
+        const filtered = prev.items.filter((item) => item.id !== targetId);
+        nextItems = filtered;
+        switch (prev.status) {
+          case "loading":
+            return { status: "loading", items: filtered };
+          case "error":
+            return { status: "error", message: prev.message, items: filtered };
+          default:
+            return { status: "ready", items: filtered };
+        }
+      });
+
+      if (editingCommentId === targetId) {
+        setEditingCommentId(null);
+        setCommentValue("");
+      }
+
+      const nextCount = nextItems.length;
+      setState((prev) => {
+        if (prev.status !== "ready" || prev.item.id !== newsId) {
+          return prev;
+        }
+        const updatedItem = { ...prev.item, commentsCount: nextCount };
+        writeCachedNewsDetail(updatedItem);
+        return { status: "ready", item: updatedItem };
+      });
+
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(
+          new CustomEvent(NEWS_CACHE_EVENT, {
+            detail: { newsId, commentsCount: nextItems.length },
+          }),
+        );
+      }
+
+      setSubmitSuccess(STR.commentDeleteSuccess);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : STR.commentError;
+      setSubmitError(message);
+    }
+  }, [activeComment, editingCommentId, handleCloseCommentActions, newsId, token, user]);
+
+  const handleReportComment = useCallback(async () => {
+    if (!activeComment) {
+      handleCloseCommentActions();
+      return;
+    }
+
+    if (!newsId || !token) {
+      setSubmitError(STR.commentLoginPrompt);
+      handleCloseCommentActions();
+      return;
+    }
+
+    const reasonInput = window.prompt(STR.commentReportPrompt, "");
+    if (reasonInput === null) {
+      return;
+    }
+
+    const payload =
+      typeof reasonInput === "string" && reasonInput.trim().length > 0
+        ? { reason: reasonInput.trim() }
+        : undefined;
+
+    handleCloseCommentActions();
+    setSubmitError(null);
+    setSubmitSuccess(null);
+
+    try {
+      await reportNewsComment(newsId, activeComment.id, payload, token);
+      setSubmitSuccess(STR.commentReportSuccess);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : STR.commentReportError;
+      setSubmitError(message);
+    }
+  }, [activeComment, handleCloseCommentActions, newsId, token]);
 
   const commentsCount =
     commentsState.items.length > 0
@@ -994,9 +1345,13 @@ export function NewsDetailPage() {
           onSubmit={() => {
             void handleSubmitComment();
           }}
+          onCancelEdit={handleCancelEdit}
+          isEditing={Boolean(editingCommentId)}
           submitting={isSubmitting}
           submitError={submitError}
+          successMessage={submitSuccess}
           avatarSrc={commenterAvatar}
+          textareaRef={desktopComposerRef}
           onOpenActions={handleOpenCommentActions}
         />
       </div>
@@ -1008,7 +1363,7 @@ export function NewsDetailPage() {
       <div className="bg-black m-[auto] flex flex-col items-center justify-center gap-1 sm:gap-4 pb-[160px] sm:pb-[70px] sm:flex-row sm:items-start">
         <DesktopSidebar />
         {content}
-        <MobileBottomNav activeHref="/news" />
+        
       </div>
 
       <CommentActionsSheet
@@ -1031,6 +1386,11 @@ export function NewsDetailPage() {
           }}
           submitting={isSubmitting}
           submitError={submitError}
+          successMessage={submitSuccess}
+          isEditing={Boolean(editingCommentId)}
+          onCancelEdit={handleCancelEdit}
+          textareaRef={mobileComposerRef}
+          avatarSrc={commenterAvatar}
         />
       ) : null}
 

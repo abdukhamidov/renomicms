@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent, type FormEvent } from "react";
+﻿import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { Link, Navigate } from "react-router-dom";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -18,18 +18,18 @@ import {
 } from "@/api/news";
 import { resolveMediaUrl } from "@/utils/media";
 
-const PAGE_TITLE = "Новости";
+const PAGE_TITLE = "РќРѕРІРѕСЃС‚Рё";
 const MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024;
 
 type FormMode = "create" | "edit";
 
 function formatDateTime(value: string | null | undefined) {
   if (!value) {
-    return "—";
+    return "вЂ”";
   }
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) {
-    return "—";
+    return "вЂ”";
   }
   return new Intl.DateTimeFormat("ru-RU", {
     dateStyle: "short",
@@ -45,6 +45,13 @@ export function AdminNewsPage() {
   const { user, token, initializing } = useAuth();
   const [isNavbarSheetOpen, setNavbarSheetOpen] = useState(false);
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
+  const selectedNewsDisplayId = useMemo(() => {
+    if (!selectedNewsId) {
+      return null;
+    }
+    const index = newsItems.findIndex((item) => item.id === selectedNewsId);
+    return index >= 0 ? index + 1 : null;
+  }, [newsItems, selectedNewsId]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -78,7 +85,7 @@ export function AdminNewsPage() {
         linkOnPaste: true,
       }),
       Placeholder.configure({
-        placeholder: "Напишите текст новости...",
+        placeholder: "РќР°РїРёС€РёС‚Рµ С‚РµРєСЃС‚ РЅРѕРІРѕСЃС‚Рё...",
       }),
     ],
     autofocus: false,
@@ -123,7 +130,7 @@ export function AdminNewsPage() {
       if (requestError instanceof Error) {
         setError(requestError.message);
       } else {
-        setError("Не удалось загрузить новости.");
+        setError("РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ РЅРѕРІРѕСЃС‚Рё.");
       }
     } finally {
       setLoading(false);
@@ -187,7 +194,7 @@ export function AdminNewsPage() {
       }
 
       if (file.size > MAX_IMAGE_SIZE_BYTES) {
-        setFormError("Файл слишком большой (10МБ).");
+        setFormError("Р¤Р°Р№Р» СЃР»РёС€РєРѕРј Р±РѕР»СЊС€РѕР№ (10РњР‘).");
         event.target.value = "";
         return;
       }
@@ -201,12 +208,12 @@ export function AdminNewsPage() {
           setFormError(null);
           setFormSuccess(null);
         } else {
-          setFormError("Не удалось прочитать файл.");
+          setFormError("РќРµ СѓРґР°Р»РѕСЃСЊ РїСЂРѕС‡РёС‚Р°С‚СЊ С„Р°Р№Р».");
         }
         event.target.value = "";
       };
       reader.onerror = () => {
-        setFormError("Не удалось прочитать файл.");
+        setFormError("РќРµ СѓРґР°Р»РѕСЃСЊ РїСЂРѕС‡РёС‚Р°С‚СЊ С„Р°Р№Р».");
         event.target.value = "";
       };
       reader.readAsDataURL(file);
@@ -217,7 +224,7 @@ export function AdminNewsPage() {
   const handleApplyImageUrl = useCallback(() => {
     const trimmed = coverImageInput.trim();
     if (!trimmed) {
-      setFormError("Укажите URL изображения.");
+      setFormError("РЈРєР°Р¶РёС‚Рµ URL РёР·РѕР±СЂР°Р¶РµРЅРёСЏ.");
       return;
     }
     setCoverImageValue(trimmed);
@@ -272,7 +279,7 @@ export function AdminNewsPage() {
         className={bubbleButtonClasses(editor.isActive("bold"))}
         onMouseDown={(event) => event.preventDefault()}
         onClick={() => editor.chain().focus().toggleBold().run()}
-        aria-label="Жирный"
+        aria-label="Р–РёСЂРЅС‹Р№"
       >
         B
       </button>
@@ -281,7 +288,7 @@ export function AdminNewsPage() {
         className={bubbleButtonClasses(editor.isActive("italic"))}
         onMouseDown={(event) => event.preventDefault()}
         onClick={() => editor.chain().focus().toggleItalic().run()}
-        aria-label="Курсив"
+        aria-label="РљСѓСЂСЃРёРІ"
       >
         I
       </button>
@@ -290,7 +297,7 @@ export function AdminNewsPage() {
         className={bubbleButtonClasses(editor.isActive("strike"))}
         onMouseDown={(event) => event.preventDefault()}
         onClick={() => editor.chain().focus().toggleStrike().run()}
-        aria-label="Зачёркнутый"
+        aria-label="Р—Р°С‡С‘СЂРєРЅСѓС‚С‹Р№"
       >
         S
       </button>
@@ -299,7 +306,7 @@ export function AdminNewsPage() {
         className={bubbleButtonClasses(editor.isActive("code"))}
         onMouseDown={(event) => event.preventDefault()}
         onClick={() => editor.chain().focus().toggleCode().run()}
-        aria-label="Код"
+        aria-label="РљРѕРґ"
       >
         {"</>"}
       </button>
@@ -313,7 +320,7 @@ export function AdminNewsPage() {
             return;
           }
           const previous = editor.getAttributes("link").href ?? "";
-          const url = window.prompt("Введите URL", previous);
+          const url = window.prompt("Р’РІРµРґРёС‚Рµ URL", previous);
           if (url === null) {
             return;
           }
@@ -324,7 +331,7 @@ export function AdminNewsPage() {
           }
           editor.chain().focus().extendMarkRange("link").setLink({ href: trimmed }).run();
         }}
-        aria-label="Ссылка"
+        aria-label="РЎСЃС‹Р»РєР°"
       >
         &#128279;
       </button>
@@ -335,18 +342,18 @@ export function AdminNewsPage() {
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       if (!token) {
-        setFormError("Требуется авторизация.");
+        setFormError("РўСЂРµР±СѓРµС‚СЃСЏ Р°РІС‚РѕСЂРёР·Р°С†РёСЏ.");
         return;
       }
       const trimmedTitle = title.trim();
       if (!trimmedTitle) {
-        setFormError("Укажите заголовок.");
+        setFormError("РЈРєР°Р¶РёС‚Рµ Р·Р°РіРѕР»РѕРІРѕРє.");
         return;
       }
       const contentHtml = editor ? editor.getHTML() : contentDraft;
       const trimmedContent = contentHtml.trim();
       if (!trimmedContent) {
-        setFormError("Добавьте содержание новости.");
+        setFormError("Р”РѕР±Р°РІСЊС‚Рµ СЃРѕРґРµСЂР¶Р°РЅРёРµ РЅРѕРІРѕСЃС‚Рё.");
         return;
       }
 
@@ -366,7 +373,7 @@ export function AdminNewsPage() {
       try {
         if (formMode === "create") {
           const response = await createNews(payload, token);
-          setFormSuccess("Новость создана.");
+          setFormSuccess("РќРѕРІРѕСЃС‚СЊ СЃРѕР·РґР°РЅР°.");
           setNewsItems((prev) => [response.news, ...prev]);
           setFormMode("edit");
           setSelectedNewsId(response.news.id);
@@ -381,7 +388,7 @@ export function AdminNewsPage() {
           }
         } else if (selectedNewsId) {
           const response = await updateNews(selectedNewsId, payload, token);
-          setFormSuccess("Новость обновлена.");
+          setFormSuccess("РќРѕРІРѕСЃС‚СЊ РѕР±РЅРѕРІР»РµРЅР°.");
           setNewsItems((prev) => prev.map((item) => (item.id === response.news.id ? response.news : item)));
           setCoverImageChanged(false);
           setCoverImageValue(response.news.coverImageUrl ?? null);
@@ -397,7 +404,7 @@ export function AdminNewsPage() {
         if (requestError instanceof Error) {
           setFormError(requestError.message);
         } else {
-          setFormError("Не удалось сохранить новость.");
+          setFormError("РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕС…СЂР°РЅРёС‚СЊ РЅРѕРІРѕСЃС‚СЊ.");
         }
       } finally {
         setIsSubmitting(false);
@@ -410,7 +417,7 @@ export function AdminNewsPage() {
     if (!token || !selectedNewsId) {
       return;
     }
-    if (!window.confirm("Удалить эту новость?")) {
+    if (!window.confirm("РЈРґР°Р»РёС‚СЊ СЌС‚Сѓ РЅРѕРІРѕСЃС‚СЊ?")) {
       return;
     }
     setIsDeleting(true);
@@ -420,12 +427,12 @@ export function AdminNewsPage() {
       await deleteNews(selectedNewsId, token);
       setNewsItems((prev) => prev.filter((item) => item.id !== selectedNewsId));
       resetForm();
-      setFormSuccess("Новость удалена.");
+      setFormSuccess("РќРѕРІРѕСЃС‚СЊ СѓРґР°Р»РµРЅР°.");
     } catch (requestError) {
       if (requestError instanceof Error) {
         setFormError(requestError.message);
       } else {
-        setFormError("Не удалось удалить новость.");
+        setFormError("РќРµ СѓРґР°Р»РѕСЃСЊ СѓРґР°Р»РёС‚СЊ РЅРѕРІРѕСЃС‚СЊ.");
       }
     } finally {
       setIsDeleting(false);
@@ -492,12 +499,12 @@ export function AdminNewsPage() {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="text-[18px] font-semibold text-white">
-                  {formMode === "create" ? "Создание новости" : "Редактирование новости"}
+                  {formMode === "create" ? "РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕСЃС‚Рё" : "Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РЅРѕРІРѕСЃС‚Рё"}
                 </p>
                 <p className="text-[12px] text-[#8C8C8C]">
                   {formMode === "create"
-                    ? "Заполните форму, чтобы опубликовать новую запись."
-                    : "Внесите изменения в выбранную новость."}
+                    ? "Р—Р°РїРѕР»РЅРёС‚Рµ С„РѕСЂРјСѓ, С‡С‚РѕР±С‹ РѕРїСѓР±Р»РёРєРѕРІР°С‚СЊ РЅРѕРІСѓСЋ Р·Р°РїРёСЃСЊ."
+                    : "Р’РЅРµСЃРёС‚Рµ РёР·РјРµРЅРµРЅРёСЏ РІ РІС‹Р±СЂР°РЅРЅСѓСЋ РЅРѕРІРѕСЃС‚СЊ."}
                 </p>
               </div>
               {formMode === "edit" ? (
@@ -506,32 +513,32 @@ export function AdminNewsPage() {
                   className="rounded-[10px] border border-[#232323] bg-[#1C1C1C] px-3 py-2 text-[12px] font-semibold text-[#dbdbdb] hover:bg-[#232323]"
                   onClick={() => resetForm({ keepVisibility: true })}
                 >
-                  Новая новость
+                  РќРѕРІР°СЏ РЅРѕРІРѕСЃС‚СЊ
                 </button>
               ) : null}
             </div>
 
             <label className="flex flex-col gap-2">
-              <span className="text-[12px] uppercase tracking-wide text-[#6f6f6f]">Заголовок</span>
+              <span className="text-[12px] uppercase tracking-wide text-[#6f6f6f]">Р—Р°РіРѕР»РѕРІРѕРє</span>
               <input
                 type="text"
                 value={title}
                 onChange={(event) => setTitle(event.target.value)}
-                placeholder="Новина reNomiCMS"
+                placeholder="РќРѕРІРёРЅР° reNomiCMS"
                 className="w-full rounded-[12px] border border-[#1D1D1D] bg-[#101010] px-4 py-3 text-[14px] text-[#f1f1f1] placeholder:text-[#666666] focus:border-[#32afed] focus:outline-none"
                 disabled={isSubmitting || isDeleting}
               />
             </label>
 
             <div className="flex flex-col gap-2 rounded-[12px] border border-[#1D1D1D] bg-[#101010] p-3">
-              <span className="text-[12px] uppercase tracking-wide text-[#6f6f6f]">Ковер</span>
+              <span className="text-[12px] uppercase tracking-wide text-[#6f6f6f]">РљРѕРІРµСЂ</span>
               {coverImagePreview ? (
                 <div className="overflow-hidden rounded-[12px] border border-[#1D1D1D]">
                   <img src={coverImagePreview} alt="" className="h-[180px] w-full object-cover" />
                 </div>
               ) : (
                 <div className="flex h-[180px] items-center justify-center rounded-[12px] border border-dashed border-[#2a2a2a] bg-[#0B0B0B] text-[13px] text-[#777777]">
-                  Изображение не выбрано
+                  РР·РѕР±СЂР°Р¶РµРЅРёРµ РЅРµ РІС‹Р±СЂР°РЅРѕ
                 </div>
               )}
               <div className="flex flex-wrap items-center gap-2">
@@ -549,7 +556,7 @@ export function AdminNewsPage() {
                   className="rounded-[10px] border border-[#232323] bg-[#1C1C1C] px-3 py-2 text-[12px] font-semibold text-[#dbdbdb] hover:bg-[#232323]"
                   disabled={isSubmitting || isDeleting}
                 >
-                  Выбрать файл
+                  Р’С‹Р±СЂР°С‚СЊ С„Р°Р№Р»
                 </button>
                 <button
                   type="button"
@@ -557,12 +564,12 @@ export function AdminNewsPage() {
                   className="rounded-[10px] border border-[#402626] bg-[#2A1414] px-3 py-2 text-[12px] font-semibold text-[#f5caca] hover:bg-[#341919]"
                   disabled={isSubmitting || isDeleting}
                 >
-                  Удалить
+                  РЈРґР°Р»РёС‚СЊ
                 </button>
               </div>
               <div className="flex flex-col gap-2">
                 <label className="flex flex-col gap-2 text-[12px] text-[#8C8C8C]">
-                  <span>Или URL</span>
+                  <span>РР»Рё URL</span>
                   <div className="flex items-center gap-2">
                     <input
                       type="url"
@@ -578,7 +585,7 @@ export function AdminNewsPage() {
                       className="rounded-[10px] border border-[#2F94F9] bg-[#2F94F9] px-3 py-2 text-[12px] font-semibold text-black hover:bg-[#257acc]"
                       disabled={isSubmitting || isDeleting}
                     >
-                      Применить
+                      РџСЂРёРјРµРЅРёС‚СЊ
                     </button>
                   </div>
                 </label>
@@ -586,21 +593,14 @@ export function AdminNewsPage() {
             </div>
 
             <div className="flex flex-col gap-2 rounded-[12px] border border-[#1D1D1D] bg-[#101010] p-3">
-              <span className="text-[12px] uppercase tracking-wide text-[#6f6f6f]">Текст новости</span>
+              <span className="text-[12px] uppercase tracking-wide text-[#6f6f6f]">РўРµРєСЃС‚ РЅРѕРІРѕСЃС‚Рё</span>
               <div className="rounded-[12px] border border-[#1D1D1D] bg-[#0B0B0B] p-3">
                 {bubbleMenu}
                 <EditorContent editor={editor} className="tiptap-editor text-[14px] text-[#dbdbdb]" />
               </div>
               <div className="flex justify-between text-[12px] text-[#777777]">
-                <span>{contentPlainLength} симв.</span>
-                {selectedNewsId ? (
-                  <span>
-                    ID:{" "}
-                    <code className="rounded bg-[#0B0B0B] px-2 py-[2px] text-[11px] text-[#bbbbbb]">
-                      {selectedNewsId}
-                    </code>
-                  </span>
-                ) : null}
+                <span>{contentPlainLength} СЃРёРјРІ.</span>
+                {selectedNewsDisplayId ? <span>ID {selectedNewsDisplayId}</span> : null}
               </div>
             </div>
 
@@ -622,7 +622,7 @@ export function AdminNewsPage() {
                 onClick={() => resetForm({ keepVisibility: true })}
                 disabled={isSubmitting || isDeleting}
               >
-                Сброс
+                РЎР±СЂРѕСЃ
               </button>
               {formMode === "edit" ? (
                 <button
@@ -631,7 +631,7 @@ export function AdminNewsPage() {
                   onClick={handleDelete}
                   disabled={isSubmitting || isDeleting}
                 >
-                  {isDeleting ? "Удаление..." : "Удалить"}
+                  {isDeleting ? "РЈРґР°Р»РµРЅРёРµ..." : "РЈРґР°Р»РёС‚СЊ"}
                 </button>
               ) : null}
               <button
@@ -639,7 +639,7 @@ export function AdminNewsPage() {
                 className="rounded-[10px] border border-[#2F94F9] bg-[#2F94F9] px-4 py-2 text-[13px] font-semibold text-black hover:bg-[#257acc]"
                 disabled={isSubmitting || isDeleting}
               >
-                {isSubmitting ? "Сохранение..." : "Сохранить"}
+                {isSubmitting ? "РЎРѕС…СЂР°РЅРµРЅРёРµ..." : "РЎРѕС…СЂР°РЅРёС‚СЊ"}
               </button>
             </div>
             </form>
@@ -649,12 +649,12 @@ export function AdminNewsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[16px] font-semibold text-white">
-                  Все новости
+                  Р’СЃРµ РЅРѕРІРѕСЃС‚Рё
                 </p>
                 <p className="text-[12px] text-[#8C8C8C]">
                   {newsItems.length === 0
-                    ? "Ещё нет публикаций."
-                    : `${newsItems.length} записей.`}
+                    ? "Р•С‰С‘ РЅРµС‚ РїСѓР±Р»РёРєР°С†РёР№."
+                    : `${newsItems.length} Р·Р°РїРёСЃРµР№.`}
                 </p>
               </div>
               <div className="flex gap-2">
@@ -663,7 +663,7 @@ export function AdminNewsPage() {
                   className="rounded-[10px] border border-[#2F94F9] bg-[#2F94F9] px-3 py-2 text-[12px] font-semibold text-black hover:bg-[#257acc]"
                   onClick={handleOpenCreate}
                 >
-                  Добавить новость
+                  Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІРѕСЃС‚СЊ
                 </button>
                 <button
                   type="button"
@@ -671,7 +671,7 @@ export function AdminNewsPage() {
                   onClick={loadNews}
                   disabled={loading}
                 >
-                  {loading ? "Обновляю..." : "Обновить"}
+                  {loading ? "РћР±РЅРѕРІР»СЏСЋ..." : "РћР±РЅРѕРІРёС‚СЊ"}
                 </button>
               </div>
             </div>
@@ -683,18 +683,17 @@ export function AdminNewsPage() {
             ) : null}
 
             <div className="flex flex-col gap-2">
-              {newsItems.map((item) => (
+              {newsItems.map((item, index) => (
                 <article
                   key={item.id}
                   className="flex flex-col gap-2 rounded-[12px] border border-[#1D1D1D] bg-[#0B0B0B] p-3 sm:flex-row sm:items-center sm:justify-between"
                 >
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[12px] uppercase tracking-wide text-[#6f6f6f]">
+                  <div className="flex flex-col gap-1">`r`n                    <span className="text-[11px] font-semibold uppercase tracking-wide text-[#b0b0b0]">ID {index + 1}</span>`r`n                    <span className="text-[12px] uppercase tracking-wide text-[#6f6f6f]">
                       {formatDateTime(item.publishedAt ?? item.updatedAt ?? item.createdAt)}
                     </span>
                     <p className="text-[15px] font-semibold text-white">{item.title}</p>
                     <p className="text-[13px] text-[#8C8C8C]">
-                      {stripHtml(item.excerpt ?? "").slice(0, 120) || "Без краткого описания."}
+                      {stripHtml(item.excerpt ?? "").slice(0, 120) || "Р‘РµР· РєСЂР°С‚РєРѕРіРѕ РѕРїРёСЃР°РЅРёСЏ."}
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2 pt-2 sm:pt-0">
@@ -703,7 +702,7 @@ export function AdminNewsPage() {
                       className="rounded-[10px] border border-[#2F94F9] bg-[#2F94F9] px-4 py-2 text-[12px] font-semibold text-black hover:bg-[#257acc]"
                       onClick={() => handleSelectNews(item)}
                     >
-                      Открыть
+                      РћС‚РєСЂС‹С‚СЊ
                     </button>
                     {item.coverImageUrl ? (
                       <a
@@ -712,7 +711,7 @@ export function AdminNewsPage() {
                         rel="noreferrer"
                         className="rounded-[10px] border border-[#232323] bg-[#1C1C1C] px-4 py-2 text-[12px] font-semibold text-[#dbdbdb] hover:bg-[#232323]"
                       >
-                        Посмотреть
+                        РџРѕСЃРјРѕС‚СЂРµС‚СЊ
                       </a>
                     ) : null}
                   </div>

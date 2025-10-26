@@ -81,9 +81,15 @@ const ADMIN_LINK_GROUPS: AdminLinkItem[][] = [
       showArrow: true,
     },
     {
-      to: "/admin",
+      to: "/admin/complaints",
       icon: "/design/img/notification-red.png",
       label: "\u0416\u0430\u043b\u043e\u0431\u044b",
+      showArrow: true,
+    },
+    {
+      to: "/admin/complaints/archive",
+      icon: "/design/img/archive.png",
+      label: "\u0410\u0440\u0445\u0438\u0432 \u0436\u0430\u043b\u043e\u0431",
       showArrow: true,
     },
     {

@@ -63,6 +63,36 @@ type NewsCommentResponse = {
   comment: NewsComment;
 };
 
+type NewsCommentDeleteResponse = {
+  status: "ok";
+  deleted: boolean;
+};
+
+export type NewsCommentReportPayload = {
+  reason?: string | null;
+};
+
+export type NewsCommentReport = {
+  id: string;
+  newsId: string;
+  commentId: string;
+  reporterId: string | null;
+  reporterUsername: string | null;
+  reporterDisplayName: string | null;
+  reason: string | null;
+  commentAuthorId: string | null;
+  commentSnapshot: {
+    content: string;
+    createdAt: string | null;
+  };
+  createdAt: string | null;
+};
+
+type NewsCommentReportResponse = {
+  status: "ok";
+  report: NewsCommentReport;
+};
+
 export type NewsListParams = {
   page?: number;
   limit?: number;
@@ -177,4 +207,50 @@ export async function createNewsComment(newsId: string, payload: NewsCommentPayl
     ...response,
     comment: normalizeNewsComment(response.comment),
   };
+}
+
+export async function updateNewsComment(
+  newsId: string,
+  commentId: string,
+  payload: NewsCommentPayload,
+  token: string,
+) {
+  const response = await apiRequest<NewsCommentResponse>(
+    `/news/${encodeURIComponent(newsId)}/comments/${encodeURIComponent(commentId)}`,
+    {
+      method: "PATCH",
+      token,
+      body: JSON.stringify(payload),
+    },
+  );
+  return {
+    ...response,
+    comment: normalizeNewsComment(response.comment),
+  };
+}
+
+export async function deleteNewsComment(newsId: string, commentId: string, token: string) {
+  return apiRequest<NewsCommentDeleteResponse>(
+    `/news/${encodeURIComponent(newsId)}/comments/${encodeURIComponent(commentId)}`,
+    {
+      method: "DELETE",
+      token,
+    },
+  );
+}
+
+export async function reportNewsComment(
+  newsId: string,
+  commentId: string,
+  payload: NewsCommentReportPayload | undefined,
+  token: string,
+) {
+  return apiRequest<NewsCommentReportResponse>(
+    `/news/${encodeURIComponent(newsId)}/comments/${encodeURIComponent(commentId)}/report`,
+    {
+      method: "POST",
+      token,
+      body: JSON.stringify(payload ?? {}),
+    },
+  );
 }
