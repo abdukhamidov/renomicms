@@ -93,6 +93,11 @@ type NewsCommentReportResponse = {
   report: NewsCommentReport;
 };
 
+type NewsViewsResponse = {
+  status: "ok";
+  viewsCount: number;
+};
+
 export type NewsListParams = {
   page?: number;
   limit?: number;
@@ -113,6 +118,7 @@ function normalizeNewsItem(item: NewsItem): NewsItem {
     ...item,
     coverImageUrl: resolveMediaUrl(item.coverImageUrl) ?? item.coverImageUrl,
     commentsCount: typeof item.commentsCount === "number" ? item.commentsCount : 0,
+    viewsCount: typeof item.viewsCount === "number" ? item.viewsCount : 0,
   };
 }
 
@@ -253,4 +259,11 @@ export async function reportNewsComment(
       body: JSON.stringify(payload ?? {}),
     },
   );
+}
+
+export async function incrementNewsViews(newsId: string, token: string | null = null) {
+  return apiRequest<NewsViewsResponse>(`/news/${encodeURIComponent(newsId)}/views`, {
+    method: "POST",
+    token,
+  });
 }

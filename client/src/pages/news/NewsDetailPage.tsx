@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+﻿import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { MutableRefObject, ReactNode } from "react";
 import { Link, Navigate, useLocation, useParams } from "react-router-dom";
 import DOMPurify from "dompurify";
@@ -147,6 +147,33 @@ function insertEmojiIntoTextarea(
   } else {
     applyCaret();
   }
+}
+
+function useAutoResizeTextarea(
+  textareaRef: MutableRefObject<HTMLTextAreaElement | null>,
+  value: string,
+  minHeight = 16,
+  maxHeight = 240,
+) {
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    const textarea = textareaRef.current;
+    if (!textarea) {
+      return;
+    }
+    textarea.style.minHeight = `${minHeight}px`;
+    textarea.style.maxHeight = `${maxHeight}px`;
+    const isEmpty = value.length === 0;
+    textarea.style.height = "auto";
+    const measuredHeight = textarea.scrollHeight;
+    const baseHeight = isEmpty
+      ? minHeight
+      : Math.min(Math.max(measuredHeight, minHeight), maxHeight);
+    textarea.style.height = `${baseHeight}px`;
+    textarea.style.overflowY = !isEmpty && measuredHeight > maxHeight ? "auto" : "hidden";
+  }, [textareaRef, value, minHeight, maxHeight]);
 }
 
 type EmojiPickerTriggerProps = {
@@ -802,18 +829,19 @@ function MobileCommentComposer({
     },
     [commentValue, onCommentChange, textareaRef],
   );
+  useAutoResizeTextarea(textareaRef, commentValue, 32, 240);
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 sm:hidden z-50 bg-[#131313] border-t border-[#1D1D1D] text-white">
+    <div className="fixed flex items-center justify-center bottom-0 left-0 right-0 sm:hidden z-50 bg-[#131313] border-t border-[#1D1D1D] text-white">
       {canComment ? (
         <form
-          className="max-w-[540px] mx-auto w-full px-3 pt-2 pb-9 flex items-end gap-2"
+          className="max-w-[540px] mx-auto w-full px-3 pt-2 pb-9 flex items-center gap-2"
           onSubmit={(event) => {
             event.preventDefault();
             onSubmit();
           }}
         >
-          <div className="shrink-0 self-end">
+          <div className="shrink-0">
             <EmojiPickerTrigger
               variant="mobile"
               disabled={submitting}
@@ -829,7 +857,7 @@ function MobileCommentComposer({
                 </button>
               </div>
             ) : null}
-            <div className="rounded-[10px] border border-[#1D1D1D] bg-[#0B0B0B] px-3 py-2">
+            <div className="rounded-[10px] border border-[#1D1D1D] bg-[#0B0B0B] px-3 py-1">
               <textarea
                 ref={textareaRef}
                 value={commentValue}
@@ -837,15 +865,15 @@ function MobileCommentComposer({
                 disabled={submitting}
                 onChange={(event) => onCommentChange(event.target.value)}
                 placeholder={STR.commentPlaceholder}
-                className="h-[16px] w-full resize-none bg-transparent text-[14px] text-[#dbdbdb] placeholder:text-[#8C8C8C] focus:outline-none"
-                rows={3}
+                className="min-h-[16px] max-h-[240px] w-full resize-none overflow-y-auto bg-transparent text-[14px] leading-[14px] text-[#dbdbdb] placeholder:text-[#8C8C8C] focus:outline-none py-3"
+                rows={1}
               />
             </div>
           </div>
           <button
             type="submit"
             disabled={submitting}
-            className="shrink-0 self-end rounded-[10px] p-2 text-[#2F94F9] disabled:opacity-70"
+            className="shrink-0 rounded-[10px] p-2 text-[#2F94F9]"
           >
             <img
               className="h-6 w-6"
@@ -889,6 +917,7 @@ export function NewsDetailPage() {
   const canComment = Boolean(user && token);
   const commenterAvatar =
     user?.avatarUrl && user.avatarUrl.length > 0 ? user.avatarUrl : DEFAULT_AVATAR;
+  const currentNewsItemId = state.status === "ready" ? state.item.id : null;
 
   const focusComposer = useCallback(() => {
     if (typeof window === "undefined") {
@@ -933,8 +962,21 @@ export function NewsDetailPage() {
       if (currentNewsIdRef.current !== targetId) {
         return;
       }
-      writeCachedNewsDetail(response.news);
-      setState({ status: "ready", item: response.news });
+      setState((prev) => {
+        if (!mountedRef.current || currentNewsIdRef.current !== targetId) {
+          return prev;
+        }
+        let nextItem = response.news;
+        if (prev.status === "ready" && prev.item.id === targetId) {
+          const prevViews = prev.item.viewsCount ?? 0;
+          const fetchedViews = response.news.viewsCount ?? 0;
+          if (prevViews > fetchedViews) {
+            nextItem = { ...response.news, viewsCount: prevViews };
+          }
+        }
+        writeCachedNewsDetail(nextItem);
+        return { status: "ready", item: nextItem };
+      });
     } catch (error) {
       if (!mountedRef.current) {
         return;
