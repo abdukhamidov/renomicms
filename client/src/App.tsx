@@ -6,6 +6,7 @@ import { ForumTopicPage } from "@/pages/forum/ForumTopicPage";
 import { ForumCreateTopicPage } from "@/pages/forum/ForumCreateTopicPage";
 import { ForumEditTopicPage } from "@/pages/forum/ForumEditTopicPage";
 import { NewsPage } from "@/pages/news/NewsPage";
+import { NewsDetailPage } from "@/pages/news/NewsDetailPage";
 import { MailPage } from "@/pages/mail/MailPage";
 import { MailChatPage } from "@/pages/mail/MailChatPage";
 import { NotificationsPage } from "@/pages/notifications/NotificationsPage";
@@ -27,6 +28,7 @@ import { AdminStatsPage } from "@/pages/admin/AdminStatsPage";
 import { AdminSiteAccessPage } from "@/pages/admin/AdminSiteAccessPage";
 import { AdminUsersPage } from "@/pages/admin/AdminUsersPage";
 import { AdminAppearancePage } from "@/pages/admin/AdminAppearancePage";
+import { AdminNewsPage } from "@/pages/admin/AdminNewsPage";
 import { MaintenancePage } from "@/pages/system/MaintenancePage";
 import { useAuth } from "@/contexts/useAuth";
 import { useSiteAccess } from "@/contexts/SiteAccessContext";
@@ -65,6 +67,7 @@ function App() {
       <Route path="/forum/sections/:sectionId/create" element={<ForumCreateTopicPage />} />
       <Route path="/forum/topics/:topicId/edit" element={<ForumEditTopicPage />} />
       <Route path="/news" element={<NewsPage />} />
+      <Route path="/news/:newsId" element={<NewsDetailPage />} />
       <Route path="/mail" element={<MailPage />} />
       <Route path="/mail/chat" element={<MailChatPage />} />
       <Route path="/notifications" element={<NotificationsPage />} />
@@ -82,6 +85,7 @@ function App() {
       <Route path="/admin/stats" element={<AdminStatsPage />} />
       <Route path="/admin/users" element={<AdminUsersPage />} />
       <Route path="/admin/appearance" element={<AdminAppearancePage />} />
+      <Route path="/admin/news" element={<AdminNewsPage />} />
       <Route path="/admin/access" element={<AdminSiteAccessPage />} />
       <Route path="/auth/login" element={<LoginPage />} />
       <Route path="/auth/register" element={<RegisterPage />} />

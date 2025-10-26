@@ -1,0 +1,28 @@
+[
+  {
+    "id": "5c3ed0d4-7569-4873-a082-560d0a7fcc77",
+    "slug": "news-5c3ed0d4",
+    "title": "Новости первый",
+    "content": "<p><strong>Рыбатекст</strong> используется дизайнерами, проектировщиками и фронтендерами, когда нужно быстро заполнить макеты или прототипы содержимым. Это тестовый контент, который не должен нести никакого смысла, лишь показать наличие самого текста или продемонстрировать типографику в деле.</p>",
+    "excerpt": "Рыбатекст используется дизайнерами, проектировщиками и фронтендерами, когда нужно быстро заполнить макеты или прототипы содержимым. Это тестовый контент, который не должен нести никакого смысла, лишь показать наличие са…",
+    "coverImageUrl": "/uploads/news/ccfb0ebc-5156-4449-8dbe-3db71d54d842.jpg",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "authorDisplayName": "Shu",
+    "createdAt": "2025-10-24T11:11:48.342Z",
+    "updatedAt": "2025-10-24T11:12:04.226Z",
+    "publishedAt": "2025-10-24T11:11:48.342Z"
+  },
+  {
+    "id": "f935567e-9ea6-45cd-a5d8-62d4cdea4dac",
+    "slug": "v2-2",
+    "title": "Обновление v2.2",
+    "content": "<p>Вышло обновление движка до версии v2.2<br>Список изменений - <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" class=\"link_visual\" href=\"http://nomicms.ru/zc/file11\">NomiCMS v2.2</a><br>GitHub - <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" class=\"link_visual\" href=\"https://github.com/nomicms/NomiCMS\">github.com/nomicms/NomiCMS</a></p>",
+    "excerpt": "Вышло обновление движка до версии v2.2 Список изменений - NomiCMS v2.2 GitHub - github.com/nomicms/NomiCMS",
+    "coverImageUrl": null,
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "authorDisplayName": "Shu",
+    "createdAt": "2025-10-26T06:25:45.860Z",
+    "updatedAt": "2025-10-26T06:25:45.860Z",
+    "publishedAt": "2025-10-26T06:25:45.860Z"
+  }
+]

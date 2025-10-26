@@ -4,7 +4,6 @@ import { DesktopSidebar } from "@/components/layout/DesktopSidebar";
 import { MobileHeader } from "@/components/layout/MobileHeader";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { NavbarActionsSheet } from "@/components/layout/NavbarActionsSheet";
-import { OfficialBadge } from "@/components/common/OfficialBadge";
 import { fetchUsersList, type UsersListItem } from "@/api/users";
 
 const PAGE_SIZE = 12;

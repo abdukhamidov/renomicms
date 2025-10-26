@@ -195,7 +195,9 @@
     "updatedAt": "2025-10-23T13:26:32.092Z",
     "isDeleted": false,
     "deletedAt": null,
-    "votes": {}
+    "votes": {
+      "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c": 1
+    }
   },
   "016c44a0-3e46-4c4f-a6b3-e80637ab774f": {
     "id": "016c44a0-3e46-4c4f-a6b3-e80637ab774f",
@@ -219,7 +221,9 @@
     "updatedAt": "2025-10-24T05:39:52.812Z",
     "isDeleted": false,
     "deletedAt": null,
-    "votes": {}
+    "votes": {
+      "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c": 1
+    }
   },
   "d7e21343-eaba-479b-afe5-41a70482cb02": {
     "id": "d7e21343-eaba-479b-afe5-41a70482cb02",
@@ -231,7 +235,9 @@
     "updatedAt": "2025-10-24T07:29:35.556Z",
     "isDeleted": false,
     "deletedAt": null,
-    "votes": {}
+    "votes": {
+      "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c": 1
+    }
   },
   "57f56b46-d00d-445c-aa35-d939278a7a2a": {
     "id": "57f56b46-d00d-445c-aa35-d939278a7a2a",
@@ -241,6 +247,60 @@
     "replyToPostId": null,
     "createdAt": "2025-10-24T08:30:58.991Z",
     "updatedAt": "2025-10-24T08:30:58.991Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {
+      "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c": 1
+    }
+  },
+  "865ac23d-9689-44ab-8b98-b3fae31baa5a": {
+    "id": "865ac23d-9689-44ab-8b98-b3fae31baa5a",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "<img class=\"max-w-full rounded-[12px]\" src=\"http://localhost:4000/uploads/forum/05259cea-135f-4050-aeb5-29feb4b868bf.md\" alt=\"afnan_форма_заявок_в_telegram_группа_полный_рабочий_код.md\">",
+    "replyToPostId": null,
+    "createdAt": "2025-10-24T08:43:07.619Z",
+    "updatedAt": "2025-10-24T08:43:07.619Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {
+      "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c": 1
+    }
+  },
+  "0e7281c5-5d4c-4c26-8b59-ed6df56bad14": {
+    "id": "0e7281c5-5d4c-4c26-8b59-ed6df56bad14",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "<p><a target=\"_blank\" rel=\"noopener noreferrer\" class=\"forum-attachment-file flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-3 no-underline hover:bg-[#252525]\" href=\"http://localhost:4000/uploads/forum/ffd29c58-343a-49e8-9834-9576d7ed6e29.md\">\n    </a></p><img class=\"max-w-full rounded-[12px]\" src=\"/design/img/attachment.png\" alt=\"File\"><p><a target=\"_blank\" rel=\"noopener noreferrer\" class=\"forum-attachment-file flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-3 no-underline hover:bg-[#252525]\" href=\"http://localhost:4000/uploads/forum/ffd29c58-343a-49e8-9834-9576d7ed6e29.md\">\n    afnan_форма_заявок_в_telegram_группа_полный_рабочий_код.md\n    54.6 KB</a></p>",
+    "replyToPostId": null,
+    "createdAt": "2025-10-24T09:10:37.282Z",
+    "updatedAt": "2025-10-24T09:10:37.282Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {
+      "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c": 1
+    }
+  },
+  "278e05f2-2c1d-4190-a921-2a343051d26d": {
+    "id": "278e05f2-2c1d-4190-a921-2a343051d26d",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "<p><a target=\"_blank\" rel=\"noopener noreferrer\" class=\"forum-attachment-file flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-3 no-underline hover:bg-[#252525]\" href=\"http://localhost:4000/uploads/forum/eca8f374-f37f-45a5-b091-a542afc0fe48.cdr\">\n    </a></p><img class=\"max-w-full rounded-[12px]\" src=\"/design/img/attachment.png\" alt=\"File1\"><p><a target=\"_blank\" rel=\"noopener noreferrer\" class=\"forum-attachment-file flex items-center gap-3 w-full max-w-[540px] rounded-[10px] border border-[#232323] bg-[#1C1C1C] p-3 no-underline hover:bg-[#252525]\" href=\"http://localhost:4000/uploads/forum/eca8f374-f37f-45a5-b091-a542afc0fe48.cdr\">\n    arenda.cdr\n    935.9 KB</a></p>",
+    "replyToPostId": null,
+    "createdAt": "2025-10-24T09:15:11.880Z",
+    "updatedAt": "2025-10-24T09:15:11.880Z",
+    "isDeleted": false,
+    "deletedAt": null,
+    "votes": {}
+  },
+  "f16db297-9c46-443d-8d26-d06c91f9c010": {
+    "id": "f16db297-9c46-443d-8d26-d06c91f9c010",
+    "topicId": "d5c1faee-7c22-4b6e-814e-891101c1aac2",
+    "authorId": "ac0aa1f4-842f-4a39-8011-a247a3eb9a6c",
+    "content": "<p>цйайцайца😂</p>",
+    "replyToPostId": null,
+    "createdAt": "2025-10-24T10:18:17.225Z",
+    "updatedAt": "2025-10-24T10:18:17.225Z",
     "isDeleted": false,
     "deletedAt": null,
     "votes": {}

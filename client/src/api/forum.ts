@@ -171,7 +171,11 @@ export function fetchForumSection(
   return apiRequest<{ status: "ok" } & ForumSectionResponse>(path, {
     method: "GET",
     token: token ?? undefined,
-  }).then(({ status: _status, ...payload }) => payload);
+  }).then((response) => {
+    const { status: _unusedStatus, ...payload } = response;
+    void _unusedStatus;
+    return payload;
+  });
 }
 
 export function fetchForumTopic(
@@ -192,7 +196,11 @@ export function fetchForumTopic(
   return apiRequest<{ status: "ok" } & ForumTopicResponse>(path, {
     method: "GET",
     token: token ?? undefined,
-  }).then(({ status: _status, ...payload }) => payload);
+  }).then((response) => {
+    const { status: _unusedStatus, ...payload } = response;
+    void _unusedStatus;
+    return payload;
+  });
 }
 
 export function createForumTopic(
@@ -219,7 +227,11 @@ export function updateForumTopic(
     method: "PATCH",
     token,
     body: JSON.stringify(payload),
-  }).then(({ status: _status, ...rest }) => rest);
+  }).then((response) => {
+    const { status: _unusedStatus, ...rest } = response;
+    void _unusedStatus;
+    return rest;
+  });
 }
 
 export function updateTopicState(topicId: string, payload: { isLocked?: boolean; isPinned?: boolean }, token: string) {

@@ -71,6 +71,7 @@ export function MessagesBadgeProvider({ children }: { children: ReactNode }) {
   return <MessagesBadgeContext.Provider value={value}>{children}</MessagesBadgeContext.Provider>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useMessagesBadge() {
   const context = useContext(MessagesBadgeContext);
   if (!context) {

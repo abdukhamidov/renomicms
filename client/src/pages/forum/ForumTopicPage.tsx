@@ -1,9 +1,8 @@
-﻿import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+﻿import { useCallback, useEffect, useMemo, useState } from "react";
 
-import type { ChangeEvent, FormEvent } from "react";
+import type { FormEvent } from "react";
 import EmojiPicker, { type EmojiClickData, Theme } from "emoji-picker-react";
 import DOMPurify from "dompurify";
-import Image from "@tiptap/extension-image";
 import LinkExtension from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import StarterKit from "@tiptap/starter-kit";
@@ -18,7 +17,6 @@ import {
   deleteForumTopic,
   fetchForumTopic,
   incrementTopicView,
-  uploadForumAttachment,
   updateTopicState,
   voteForumPost,
   type ForumPost,
@@ -26,74 +24,10 @@ import {
   type ForumTopicResponse,
   type ForumUserSummary,
 } from "@/api/forum";
-import { API_BASE_URL } from "@/api/client";
 
 const DEFAULT_AVATAR = "/design/img/default-avatar.png";
 const MAX_POST_LENGTH = 6000;
 const REPLY_PLACEHOLDER = "Напишите комментарий";
-const MAX_ATTACHMENT_SIZE_BYTES = 50 * 1024 * 1024;
-
-function resolveAttachmentUrl(url: string | null | undefined) {
-  if (!url) {
-    return null;
-  }
-  if (url.startsWith("http://") || url.startsWith("https://")) {
-    return url;
-  }
-  const normalized = url.startsWith("/") ? url : `/${url}`;
-  const base = API_BASE_URL.endsWith("/") ? API_BASE_URL.slice(0, -1) : API_BASE_URL;
-  return `${base}${normalized}`;
-}
-
-function readFileAsBase64(file: File) {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result;
-      if (typeof result !== "string") {
-        reject(new Error("Не удалось прочитать файл."));
-        return;
-      }
-      const [, base64] = result.split("base64,");
-      resolve(base64 ?? result);
-    };
-    reader.onerror = () => reject(new Error("Не удалось прочитать файл."));
-    reader.readAsDataURL(file);
-  });
-}
-
-function prepareContentForDisplay(content: string) {
-  if (typeof content !== "string" || content.trim() === "") {
-    return "";
-  }
-  if (typeof window === "undefined" || typeof window.DOMParser === "undefined") {
-    return content;
-  }
-  try {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(content, "text/html");
-    doc.querySelectorAll("img").forEach((img) => {
-      const original = img.getAttribute("data-attachment-src") || img.getAttribute("data-original-src");
-      if (original) {
-        const resolved = resolveAttachmentUrl(original);
-        if (resolved) {
-          img.setAttribute("src", resolved);
-        }
-      } else {
-        const src = img.getAttribute("src");
-        if (src) {
-          const resolved = resolveAttachmentUrl(src);
-          if (resolved) {
-            img.setAttribute("src", resolved);
-          }
-        }
-      }
-    });
-    return doc.body.innerHTML;
-  } catch {
-    return content;
-  }
-}
 
 function formatNumber(value: number | null | undefined) {
   if (typeof value !== "number" || Number.isNaN(value)) {
@@ -431,7 +365,7 @@ type PostCardProps = {
 
 function PostCard({ post, onReply, onVote, onOpenActions, canVote, isVotePending }: PostCardProps) {
   const sanitizedContent = useMemo(
-    () => DOMPurify.sanitize(prepareContentForDisplay(post.content), { USE_PROFILES: { html: true } }),
+    () => DOMPurify.sanitize(post.content, { USE_PROFILES: { html: true } }),
     [post.content],
   );
 
@@ -502,7 +436,6 @@ export function ForumTopicPage() {
   const { topicId } = useParams<{ topicId: string }>();
   const { token } = useAuth();
 
-  const attachmentInputRef = useRef<HTMLInputElement | null>(null);
   const [isNavbarSheetOpen, setIsNavbarSheetOpen] = useState(false);
   const [isTopicActionsOpen, setIsTopicActionsOpen] = useState(false);
   const [state, setState] = useState<TopicViewState>({ status: "loading" });
@@ -514,7 +447,6 @@ export function ForumTopicPage() {
   const [activePost, setActivePost] = useState<ForumPost | null>(null);
   const [votePending, setVotePending] = useState<Record<string, boolean>>({});
   const [voteError, setVoteError] = useState<string | null>(null);
-  const [attachmentUploading, setAttachmentUploading] = useState(false);
   const [isDesktop, setIsDesktop] = useState<boolean>(() => {
     if (typeof window === "undefined") {
       return true;
@@ -538,11 +470,6 @@ export function ForumTopicPage() {
         HTMLAttributes: {
           rel: "noopener noreferrer nofollow",
           target: "_blank",
-        },
-      }),
-      Image.configure({
-        HTMLAttributes: {
-          "class": "max-w-full rounded-[12px]",
         },
       }),
       Placeholder.configure({
@@ -775,21 +702,20 @@ export function ForumTopicPage() {
     }
     const buttonClass = isVariantDesktop ? "text-[20px]" : "p-2 text-[22px]";
     const menuPositionClass = "bottom-[calc(100%+8px)] left-0";
-    const emojiDisabled = !editor.isEditable || postSubmitting || attachmentUploading;
     return (
       <div className="relative" data-emoji-picker>
         <button
           type="button"
-          className={`${buttonClass} rounded-[8px] hover:bg-[#1D1D1D] flex items-center justify-center p-[4px] ${emojiDisabled ? "opacity-60 cursor-not-allowed" : ""}`}
+          className={`${buttonClass} rounded-[8px] hover:bg-[#1D1D1D] flex items-center justify-center p-[4px]`}
           onMouseDown={(event) => event.preventDefault()}
           onClick={() => {
-            if (emojiDisabled) {
+            if (!editor.isEditable || postSubmitting) {
               return;
             }
             setIsEmojiMenuOpen((open) => !open);
           }}
           aria-label="Вставить эмодзи"
-          disabled={emojiDisabled}
+          disabled={!editor.isEditable || postSubmitting}
         >
           <span aria-hidden="true" role="img">
             <img src="/design/img/smile.png" alt="Вставить эмодзи" />
@@ -801,7 +727,7 @@ export function ForumTopicPage() {
           >
             <EmojiPicker
               onEmojiClick={(emojiData: EmojiClickData) => {
-                if (!editor.isEditable || postSubmitting || attachmentUploading) {
+                if (!editor.isEditable || postSubmitting) {
                   return;
                 }
                 editor.chain().focus().insertContent(emojiData.emoji).run();
@@ -821,85 +747,6 @@ export function ForumTopicPage() {
       </div>
     );
   };
-
-  const handleAttachmentButtonClick = useCallback(() => {
-    if (attachmentUploading) {
-      return;
-    }
-    if (state.status !== "ready") {
-      setFormError("Подождите, данные темы загружаются.");
-      return;
-    }
-    if (!token) {
-      setFormError("Войдите, чтобы загрузить изображение.");
-      return;
-    }
-    if (!canReply) {
-      setFormError(isTopicLocked ? "Ответы отключены, пока тема закрыта." : "У вас нет прав отвечать в этой теме.");
-      return;
-    }
-    if (!editor) {
-      setFormError("Редактор не загружен. Обновите страницу и попробуйте снова.");
-      return;
-    }
-    setFormError(null);
-    setIsEmojiMenuOpen(false);
-    attachmentInputRef.current?.click();
-  }, [attachmentUploading, state.status, token, canReply, isTopicLocked, editor]);
-
-  const handleAttachmentChange = useCallback(
-    async (event: ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0] ?? null;
-      event.target.value = "";
-      if (!file) {
-        return;
-      }
-      if (!token) {
-        setFormError("Войдите, чтобы загрузить изображение.");
-        return;
-      }
-      if (!editor) {
-        setFormError("Редактор не загружен. Обновите страницу и попробуйте снова.");
-        return;
-      }
-      if (file.size > MAX_ATTACHMENT_SIZE_BYTES) {
-        const maxMb = Math.round(MAX_ATTACHMENT_SIZE_BYTES / (1024 * 1024));
-        setFormError(`Файл не может превышать ${maxMb} МБ.`);
-        return;
-      }
-
-      setAttachmentUploading(true);
-      setFormError(null);
-      try {
-        const base64 = await readFileAsBase64(file);
-        const { attachmentUrl, filename } = await uploadForumAttachment(
-          {
-            filename: file.name,
-            content: base64,
-            contentType: file.type || null,
-          },
-          token,
-        );
-        const imageAlt = filename || file.name;
-        const resolvedUrl = resolveAttachmentUrl(attachmentUrl) ?? attachmentUrl;
-        const chain = editor.chain().focus().setImage({
-          src: resolvedUrl,
-          alt: imageAlt,
-        });
-        if (attachmentUrl) {
-          chain.updateAttributes("image", { "data-attachment-src": attachmentUrl });
-        }
-        chain.run();
-        setIsEmojiMenuOpen(false);
-      } catch (error) {
-        const message = error instanceof Error ? error.message : "Не удалось загрузить файл.";
-        setFormError(message);
-      } finally {
-        setAttachmentUploading(false);
-      }
-    },
-    [editor, token],
-  );
 
   const replyNotice =
     state.status === "ready"
@@ -1010,11 +857,6 @@ export function ForumTopicPage() {
         return;
       }
 
-      if (attachmentUploading) {
-        setFormError("Дождитесь окончания загрузки файла.");
-        return;
-      }
-
       setFormError(null);
 
       if (!token) {
@@ -1040,28 +882,7 @@ export function ForumTopicPage() {
       }
 
       const plainText = editor.getText().replace(/\u00a0/g, " ").trim();
-      const rawHtmlContent = editor.getHTML();
-      const submissionHtml = (() => {
-        if (typeof window === "undefined" || typeof window.DOMParser === "undefined") {
-          return rawHtmlContent;
-        }
-        try {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(rawHtmlContent, "text/html");
-          doc.querySelectorAll("img[data-attachment-src]").forEach((img) => {
-            const original = img.getAttribute("data-attachment-src");
-            if (original) {
-              img.setAttribute("src", original);
-            }
-            img.removeAttribute("data-attachment-src");
-          });
-          return doc.body.innerHTML;
-        } catch {
-          return rawHtmlContent;
-        }
-      })();
-      const hasEmbeddedMedia = /<img\b[^>]*>/i.test(submissionHtml);
-      if (!plainText && !hasEmbeddedMedia) {
+      if (!plainText) {
         setFormError("Введите сообщение перед отправкой.");
         return;
       }
@@ -1075,7 +896,7 @@ export function ForumTopicPage() {
       try {
         const newPost = await createForumPost(
           state.data.topic.id,
-          { content: submissionHtml, replyToPostId: replyTarget?.postId ?? null },
+          { content: editor.getHTML(), replyToPostId: replyTarget?.postId ?? null },
           token
         );
         setState((prev) => {
@@ -1111,7 +932,7 @@ export function ForumTopicPage() {
         setPostSubmitting(false);
       }
     },
-    [editor, state, token, replyTarget, attachmentUploading],
+    [editor, state, token, replyTarget],
   );
 
   const handleToggleLock = useCallback(async () => {
@@ -1228,14 +1049,6 @@ export function ForumTopicPage() {
             {voteError}
           </div>
         ) : null}
-
-        <input
-          ref={attachmentInputRef}
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={handleAttachmentChange}
-        />
 
         {state.status === "loading" ? (
           <div className="flex flex-col w-full max-w-[540px] items-center gap-3 bg-[#131313] border border-[#1D1D1D] text-white p-[24px] rounded-[12px]">
@@ -1359,30 +1172,17 @@ export function ForumTopicPage() {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <button
-                      type="button"
-                      className={`rounded-[8px] hover:bg-[#1D1D1D] flex items-center justify-center p-[4px] ${attachmentUploading ? "opacity-60 cursor-not-allowed" : ""}`}
-                      onClick={handleAttachmentButtonClick}
-                      disabled={attachmentUploading}
-                      aria-busy={attachmentUploading}
-                    >
-                      {attachmentUploading ? (
-                        <span
-                          aria-hidden="true"
-                          className="h-[20px] w-[20px] rounded-full border-2 border-[#32afed] border-t-transparent animate-spin"
-                        />
-                      ) : (
-                        <span aria-hidden="true" role="img">
-                          <img src="/design/img/attachment.png" alt="Прикрепить изображение" />
-                        </span>
-                      )}
+                    <button type="button" className="rounded-[8px] hover:bg-[#1D1D1D] flex items-center justify-center p-[4px]">
+                      <span aria-hidden="true" role="img">
+                        <img src="/design/img/attachment.png" alt="Прикрепить изображение" />
+                      </span>
                     </button>
                     {renderEmojiPicker("desktop")}
                   </div>
                   <button
                     type="submit"
                     className="py-[6px] px-[8px] font-bold text-[#000000] bg-[#32afed] hover:bg-[#2b99cf] rounded-[8px]"
-                    disabled={postSubmitting || attachmentUploading}
+                    disabled={postSubmitting}
                   >
                     {postSubmitting ? "Отправка..." : "Отправить"}
                   </button>
@@ -1451,21 +1251,8 @@ export function ForumTopicPage() {
               onSubmit={state.status === "ready" ? handleSubmit : undefined}
             >
               <div className="flex items-end gap-1">
-                <button
-                  type="button"
-                  className={`shrink-0 self-end p-2 rounded-[8px] hover:bg-[#1D1D1D] flex items-center justify-center ${attachmentUploading ? "opacity-60 cursor-not-allowed" : ""}`}
-                  onClick={handleAttachmentButtonClick}
-                  disabled={attachmentUploading}
-                  aria-busy={attachmentUploading}
-                >
-                  {attachmentUploading ? (
-                    <span
-                      aria-hidden="true"
-                      className="h-[20px] w-[20px] rounded-full border-2 border-[#32afed] border-t-transparent animate-spin"
-                    />
-                  ) : (
-                    <img src="/design/img/image.png" alt="Прикрепить изображение" />
-                  )}
+                <button type="button" className="shrink-0 self-end p-2">
+                  <img src="/design/img/image.png" alt="Прикрепить изображение" />
                 </button>
                 {renderEmojiPicker("mobile")}
               </div>
@@ -1479,7 +1266,7 @@ export function ForumTopicPage() {
               <button
                 type="submit"
                 className="shrink-0 self-end p-2 rounded-[10px] text-[#66e48b]"
-                disabled={state.status !== "ready" || postSubmitting || attachmentUploading}
+                disabled={state.status !== "ready" || postSubmitting}
               >
                 <img className="w-6 h-6" src="/design/img/send.png" alt="\u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c" />
               </button>
@@ -1516,5 +1303,3 @@ export function ForumTopicPage() {
     </div>
   );
 }
-
-

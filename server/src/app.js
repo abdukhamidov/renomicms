@@ -13,6 +13,7 @@ import { adminRouter } from "./modules/admin/admin.router.js";
 import { siteAccessRouter } from "./modules/site-access/site-access.router.js";
 import { appearanceRouter } from "./modules/appearance/appearance.router.js";
 import { forumRouter } from "./modules/forum/forum.router.js";
+import { newsRouter } from "./modules/news/news.router.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,6 +44,7 @@ export function createApp() {
   app.use("/users", usersRouter);
   app.use("/messages", messagesRouter);
   app.use("/forum", forumRouter);
+  app.use("/news", newsRouter);
   app.use("/admin", adminRouter);
 
   app.get("/", (_req, res) => {

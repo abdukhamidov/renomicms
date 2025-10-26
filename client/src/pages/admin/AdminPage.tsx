@@ -52,7 +52,7 @@ const ADMIN_LINK_GROUPS: AdminLinkItem[][] = [
   ],
   [
     {
-      to: "/admin",
+      to: "/admin/news",
       icon: "/design/img/language.png",
       label: "\u041d\u043e\u0432\u043e\u0441\u0442\u0438",
       innerPaddingClass: "py-[8px]",
